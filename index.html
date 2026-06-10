@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Holiday Homework – Class VIII</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Caveat+Brush&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --line: 38px;        /* height of ONE ruled line */
+  --margin-l: 88px;    /* left margin after red line */
+  --pad-top: 76px;     /* 2 lines of top padding */
+  --pad-side: 52px;
+}
+
+body {
+  background: #b5afa5;
+  font-family: 'Caveat', cursive;
+  font-size: 21px;
+  color: #111;
+  padding: 36px 20px;
+}
+
+/* ─── PAGE ─────────────────────────────── */
+.page {
+  width: 794px;
+  min-height: 1123px;
+  margin: 0 auto 56px;
+  position: relative;
+  box-shadow: 5px 7px 22px rgba(0,0,0,0.38);
+  overflow: hidden;
+}
+
+/* ─── BLANK PAGE ────────────────────────── */
+.blank-page {
+  background: #fdf8ec;
+  padding: 46px var(--pad-side);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 1123px;
+}
+
+/* ─── RULED PAGE ─────────────────────────
+   Lines start at top=0 and repeat every --line px.
+   All text must be placed at multiples of --line.
+   line-height === --line keeps text ON the lines.
+──────────────────────────────────────────── */
+.ruled-page {
+  background-color: #fefefe;
+  background-image:
+    linear-gradient(90deg,
+      transparent 82px,
+      #e8786a 82px, #e8786a 84px,
+      transparent 84px),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent calc(var(--line) - 1px),
+      #aecde8 calc(var(--line) - 1px),
+      #aecde8 var(--line)
+    );
+  /* pad-top must be a multiple of --line so text baseline aligns */
+  padding: var(--pad-top) var(--pad-side) var(--pad-top) var(--margin-l);
+  min-height: 1123px;
+}
+
+/* ─── TYPOGRAPHY ON RULED PAGES ─────────
+   Every text element must have line-height: var(--line)
+   and margin that is a multiple of var(--line).
+──────────────────────────────────────────── */
+.ruled-page * {
+  line-height: var(--line);
+}
+
+.section-heading {
+  font-family: 'Caveat Brush', cursive;
+  font-size: 30px;
+  color: #12126e;
+  border-bottom: 2.5px solid #12126e;
+  padding-bottom: 0;
+  margin-bottom: var(--line);
+  display: block;
+  line-height: var(--line);
+}
+
+.sub-heading {
+  font-family: 'Caveat Brush', cursive;
+  font-size: 24px;
+  color: #8b0000;
+  display: block;
+  margin-top: var(--line);
+  margin-bottom: 0;
+  line-height: var(--line);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* paragraph lines — each .ln is exactly one ruled line */
+.ln {
+  display: block;
+  line-height: var(--line);
+  min-height: var(--line);
+}
+.gap { display: block; height: var(--line); }
+
+/* bullet list */
+.hw-list { list-style: none; padding: 0; margin: 0; }
+.hw-list li {
+  line-height: var(--line);
+  padding-left: 24px;
+  position: relative;
+}
+.hw-list li::before {
+  content: "➤";
+  position: absolute; left: 0;
+  font-size: 14px; top: 3px;
+  color: #8b0000;
+}
+
+/* ─── STUDENT BOX ───────────────────────── */
+.student-box {
+  border: 2px dashed #8b0000;
+  padding: 0 18px;
+  margin-bottom: var(--line);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.55);
+}
+/* each field fills exactly one line */
+.student-box .ln { font-size: 20px; }
+
+/* ─── TABLES ─────────────────────────────── */
+table.hw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 19px;
+  /* table rows snap: each row = --line */
+}
+table.hw-table th {
+  background: #1e3a5f;
+  color: #fff;
+  padding: 6px 10px;
+  font-family: 'Caveat Brush', cursive;
+  font-size: 19px;
+  border: 1.5px solid #1e3a5f;
+  line-height: 1.2;
+}
+table.hw-table td {
+  border: 1.5px solid #7a9cc0;
+  padding: 6px 10px;
+  vertical-align: middle;
+  line-height: 1.3;
+}
+table.hw-table tr:nth-child(even) td { background: rgba(174,205,232,0.18); }
+
+table.obs-table {
+  width: 82%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 19px;
+}
+table.obs-table th {
+  background: #1a7a42;
+  color: #fff;
+  padding: 6px 14px;
+  font-family: 'Caveat Brush', cursive;
+  font-size: 19px;
+  border: 1.5px solid #1a7a42;
+  line-height: 1.2;
+}
+table.obs-table td {
+  border: 1.5px solid #1a7a42;
+  padding: 6px 14px;
+  line-height: 1.3;
+}
+table.obs-table tr:nth-child(even) td { background: #f0fff4; }
+
+table.cost-table {
+  width: 58%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 19px;
+}
+table.cost-table th {
+  background: #1a4a7a;
+  color: #fff;
+  padding: 6px 14px;
+  font-family: 'Caveat Brush', cursive;
+  border: 1.5px solid #1a4a7a;
+  line-height: 1.2;
+}
+table.cost-table td {
+  border: 1.5px solid #1a4a7a;
+  padding: 6px 14px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ─── BLANK PAGE ELEMENTS ───────────────── */
+.subject-badge {
+  background: #2c3e50; color: #fff;
+  font-family: 'Caveat Brush', cursive;
+  font-size: 17px; letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 16px; border-radius: 3px;
+  margin-bottom: 16px; display: inline-block;
+}
+.cover-title {
+  font-family: 'Caveat Brush', cursive;
+  font-size: 46px; text-align: center;
+  line-height: 1.18; margin: 16px 0 10px;
+}
+.cover-subtitle {
+  font-size: 24px; text-align: center;
+  color: #555; margin-bottom: 24px;
+}
+.cover-school {
+  font-size: 19px; text-align: center;
+  color: #666; margin-top: 30px;
+}
+.cover-divider {
+  width: 180px; height: 3px;
+  background: currentColor;
+  margin: 10px auto; border-radius: 2px;
+  opacity: 0.28;
+}
+.deco-border {
+  position: absolute; inset: 16px;
+  border: 2.5px solid rgba(0,0,0,0.10);
+  border-radius: 4px; pointer-events: none;
+}
+.deco-border-inner {
+  position: absolute; inset: 24px;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 3px; pointer-events: none;
+}
+
+/* image frames */
+.img-frame {
+  border: 2.5px solid #aaa;
+  border-radius: 6px; overflow: hidden;
+  margin: 16px auto; display: block;
+}
+.img-frame img { width: 100%; height: auto; display: block; }
+.img-caption {
+  font-size: 17px; color: #555;
+  text-align: center; margin-top: 5px;
+}
+
+.activity-strip {
+  background: #1a7a42; color: #fff;
+  font-family: 'Caveat Brush', cursive;
+  font-size: 24px;
+  padding: 6px 20px; border-radius: 4px;
+  display: inline-block; margin-bottom: var(--line);
+  line-height: 1.3;
+}
+
+.info-pill {
+  background: rgba(255,255,255,0.72);
+  border: 2px dashed currentColor;
+  padding: 12px 22px; border-radius: 6px;
+  margin-top: 20px; font-size: 20px;
+  text-align: center; width: 88%;
+}
+
+/* student fill box on cover */
+.cover-fill {
+  background: rgba(255,255,255,0.72);
+  border: 2px solid currentColor;
+  border-radius: 8px; padding: 16px 30px;
+  margin: 22px 0; width: 80%;
+}
+.cover-fill .fl {
+  font-size: 21px; display: block;
+  line-height: 1.8; color: #333;
+}
+
+/* page number */
+.page-num {
+  position: absolute; bottom: 14px; right: 20px;
+  font-size: 16px; color: #bbb;
+}
+
+/* cover color variants */
+.cov-sst   { background: linear-gradient(155deg,#ddeeff 0%,#b8d8f5 55%,#90bfe8 100%); }
+.cov-voc   { background: linear-gradient(155deg,#e5f5e5 0%,#c0e6c0 55%,#96d496 100%); }
+.cov-proj  { background: linear-gradient(155deg,#e5f5ee 0%,#b8e8d0 55%,#88d8b0 100%); }
+.cov-act   { background: linear-gradient(155deg,#fef5e5 0%,#fde5b8 55%,#f8cc88 100%); }
+.cov-solar { background: linear-gradient(155deg,#fff8e0 0%,#ffe8a0 55%,#ffd060 100%); }
+
+</style>
+</head>
+<body>
+
+<!-- ████████████████████████████████████████
+     SST — POLITICAL PARTIES
+████████████████████████████████████████ -->
+
+<!-- PAGE 1: SST Cover -->
+<div class="page blank-page cov-sst">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="subject-badge">Social Studies — Project Work</div>
+  <div class="cover-title" style="color:#0d3b6e;">Social Science<br>Project Work</div>
+  <div class="cover-divider" style="color:#0d3b6e;"></div>
+  <div class="cover-subtitle">Indian Political Parties &amp; Solar Energy</div>
+  <div class="img-frame" style="width:340px;">
+    <img src="V1.png" alt="India Map">
+  </div>
+  <div class="img-caption">Political Map of India</div>
+  <div class="cover-school">St. Xavier's Jr./Sr. School, Goshala, Muzaffarpur<br>Class VIII &nbsp;•&nbsp; 2026–27</div>
+  <div class="page-num">1</div>
+</div>
+
+<!-- PAGE 2: Political Parties — intro + student box -->
+<div class="page ruled-page">
+  <span class="section-heading">Social Science — Indian Political Parties</span>
+
+  <div class="student-box">
+    <span class="ln">Name &nbsp;: ________________________________________</span>
+    <span class="ln">Class &amp; Section : VIII – _______ &nbsp;&nbsp; Roll No. : _______</span>
+    <span class="ln">Subject : Social Science &nbsp;&nbsp;&nbsp; Academic Year : 2026–27</span>
+  </div>
+
+  <span class="sub-heading">Introduction</span>
+  <span class="ln">A political party is an organised group of people who share</span>
+  <span class="ln">similar political beliefs and come together to contest elections</span>
+  <span class="ln">and hold power in government. India is the world's largest</span>
+  <span class="ln">democracy and has a multi-party system recognised by the</span>
+  <span class="ln">Election Commission of India. Parties are classified as</span>
+  <span class="ln">National Parties or State Parties based on their electoral</span>
+  <span class="ln">performance across the country.</span>
+  <span class="gap"></span>
+  <span class="ln">Below is a list of 10 major Indian political parties along</span>
+  <span class="ln">with their election symbols and party presidents.</span>
+  <div class="page-num">2</div>
+</div>
+
+<!-- PAGE 3: Political Parties TABLE -->
+<div class="page ruled-page">
+  <span class="sub-heading">10 Major Indian Political Parties</span>
+  <span class="gap"></span>
+  <table class="hw-table">
+    <thead>
+      <tr>
+        <th style="width:5%;">#</th>
+        <th style="width:38%;">Party Name</th>
+        <th style="width:27%;">Election Symbol</th>
+        <th style="width:30%;">Party President</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Indian National Congress (INC)</td><td>🖐 Hand</td><td>Mallikarjun Kharge</td></tr>
+      <tr><td>2</td><td>Bharatiya Janata Party (BJP)</td><td>🪷 Lotus</td><td>J.P. Nadda</td></tr>
+      <tr><td>3</td><td>AIMIM</td><td>🪁 Kite</td><td>Asaduddin Owaisi</td></tr>
+      <tr><td>4</td><td>All India Trinamool Congress (TMC)</td><td>🌿 Flowers &amp; Grass</td><td>Mamata Banerjee</td></tr>
+      <tr><td>5</td><td>Dravida Munnetra Kazhagam (DMK)</td><td>🌅 Rising Sun</td><td>M.K. Stalin</td></tr>
+      <tr><td>6</td><td>AIADMK</td><td>🍃 Two Leaves</td><td>Edappadi K. Palaniswami</td></tr>
+      <tr><td>7</td><td>Shiv Sena (UBT)</td><td>🔥 Flaming Torch</td><td>Uddhav Thackeray</td></tr>
+      <tr><td>8</td><td>National Conference (NC)</td><td>🌾 Plough</td><td>Farooq Abdullah</td></tr>
+      <tr><td>9</td><td>Peoples Democratic Party (PDP)</td><td>🖊 Ink Pot &amp; Pen</td><td>Mehbooba Mufti</td></tr>
+      <tr><td>10</td><td>Communist Party of India (CPI)</td><td>⚙ Corn &amp; Sickle</td><td>D. Raja</td></tr>
+    </tbody>
+  </table>
+  <span class="gap"></span>
+  <span class="sub-heading">Importance of Political Parties</span>
+  <span class="ln">Political parties play a vital role in democracy. They represent</span>
+  <span class="ln">citizens' views, form governments, create policies, and provide</span>
+  <span class="ln">a peaceful means of transferring power after elections.</span>
+  <div class="page-num">3</div>
+</div>
+
+<!-- PAGE 4: Solar Energy Cover -->
+<div class="page blank-page cov-solar">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="subject-badge" style="background:#a05000;">Social Studies — Project</div>
+  <div class="cover-title" style="color:#7a3a00; font-size:44px;">Solar Energy</div>
+  <div class="cover-divider" style="color:#7a3a00;"></div>
+  <div class="cover-subtitle" style="color:#8b4500;">Harnessing the Power of the Sun</div>
+  <div class="img-frame" style="width:420px; margin-top:14px;">
+    <img src="V2.png" alt="Solar Panels">
+  </div>
+  <div class="img-caption" style="color:#7a3a00;">Solar panels — converting sunlight into electricity</div>
+  <div class="cover-school" style="color:#7a3a00;">Class VIII &nbsp;•&nbsp; Social Science Project &nbsp;•&nbsp; 2026–27<br>St. Xavier's Jr./Sr. School, Muzaffarpur</div>
+  <div class="page-num">4</div>
+</div>
+
+<!-- PAGE 5: Solar Energy — What + How -->
+<div class="page ruled-page">
+  <span class="section-heading">Solar Energy — Project</span>
+
+  <span class="sub-heading">What is Solar Energy?</span>
+  <span class="ln">Solar energy is the energy obtained from the sun's radiation.</span>
+  <span class="ln">The sun is a giant nuclear reactor releasing enormous amounts</span>
+  <span class="ln">of energy in the form of light and heat. This energy can be</span>
+  <span class="ln">captured and converted into electricity or used for heating</span>
+  <span class="ln">purposes using solar panels and solar cells. Solar energy is</span>
+  <span class="ln">renewable and clean — it produces no harmful gases and will</span>
+  <span class="ln">never run out as long as the sun shines.</span>
+
+  <span class="sub-heading">How Does Solar Energy Work?</span>
+  <span class="ln">Solar panels are made of photovoltaic (PV) cells. When sunlight</span>
+  <span class="ln">falls on these cells, it knocks electrons loose and creates an</span>
+  <span class="ln">electric current — this is called the Photovoltaic Effect. The</span>
+  <span class="ln">electricity produced can power homes, schools, and industries.</span>
+
+  <span class="sub-heading">India and Solar Energy</span>
+  <span class="ln">India receives about 300 sunny days per year, making it one of</span>
+  <span class="ln">the best countries for solar energy. India ranks among the top 5</span>
+  <span class="ln">nations globally in installed solar capacity.</span>
+  <div class="page-num">5</div>
+</div>
+
+<!-- PAGE 6: Solar Energy — Applications + NSM -->
+<div class="page ruled-page">
+  <span class="sub-heading">Applications of Solar Energy</span>
+  <ul class="hw-list">
+    <li><em>Solar Panels</em> — convert sunlight into electricity for homes and industries.</li>
+    <li><em>Solar Water Heaters</em> — heat water without using electricity or gas.</li>
+    <li><em>Solar Street Lights</em> — light up roads using energy stored in the day.</li>
+    <li><em>Solar Cookers</em> — use sunlight to cook food, saving fuel and money.</li>
+    <li><em>Solar Pumps</em> — help farmers irrigate fields without electricity bills.</li>
+    <li><em>Solar Vehicles</em> — cars and boats running on solar energy reduce pollution.</li>
+  </ul>
+
+  <span class="sub-heading">India's National Solar Mission (NSM)</span>
+  <span class="ln">The National Solar Mission was launched in 2010 under India's</span>
+  <span class="ln">National Action Plan on Climate Change to make India a global</span>
+  <span class="ln">leader in solar energy.</span>
+  <span class="gap"></span>
+  <ul class="hw-list">
+    <li>Target of 500 GW solar capacity by 2030.</li>
+    <li>Reduce dependence on coal and fossil fuels.</li>
+    <li>Promote rooftop solar panels on homes and institutions.</li>
+    <li>Create jobs in the solar energy sector across India.</li>
+  </ul>
+  <div class="page-num">6</div>
+</div>
+
+<!-- PAGE 7: Solar Energy — Advantages + Conclusion -->
+<div class="page ruled-page">
+  <span class="sub-heading">Advantages of Solar Energy</span>
+  <ul class="hw-list">
+    <li>It is <em>renewable</em> — the sun will shine for billions of years.</li>
+    <li>It produces <em>no pollution</em> — no smoke, no greenhouse gases.</li>
+    <li>It significantly <em>reduces electricity bills</em> for households.</li>
+    <li>It can power <em>remote areas</em> where grid electricity does not reach.</li>
+    <li>It requires <em>very low maintenance</em> once the panels are installed.</li>
+  </ul>
+
+  <span class="sub-heading">Disadvantages of Solar Energy</span>
+  <ul class="hw-list">
+    <li>Cannot generate power at night or during heavily cloudy days.</li>
+    <li>Initial installation cost of solar panels is relatively high.</li>
+    <li>Solar farms require large areas of land.</li>
+  </ul>
+
+  <span class="sub-heading">Conclusion</span>
+  <span class="ln">Solar energy is the energy of the future. As fossil fuels deplete</span>
+  <span class="ln">and climate change threatens our planet, India must shift to clean</span>
+  <span class="ln">and renewable sources like solar energy. With its abundant</span>
+  <span class="ln">sunshine, India has the potential to become a world leader in</span>
+  <span class="ln">solar power and build a greener, healthier planet for all.</span>
+  <div class="page-num">7</div>
+</div>
+
+
+<!-- ████████████████████████████████████████
+     VOCATIONAL EDUCATION
+████████████████████████████████████████ -->
+
+<!-- PAGE 8: Vocational Cover -->
+<div class="page blank-page cov-voc">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="subject-badge" style="background:#145214;">Vocational Education</div>
+  <div class="cover-title" style="color:#0a3a0a; font-size:52px;">My Portfolio</div>
+  <div class="cover-divider" style="color:#145214;"></div>
+  <div class="cover-subtitle" style="color:#1a5c1a; font-size:22px;">Part 1 — Work with Life Forms</div>
+  <div class="cover-fill" style="border-color:#145214; color:#145214;">
+    <span class="fl">Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : ________________________________</span>
+    <span class="fl">Class &amp; Sec &nbsp;: VIII – _______</span>
+    <span class="fl">Roll No. &nbsp;&nbsp;&nbsp;&nbsp;: _______</span>
+    <span class="fl">Academic Yr : 2026 – 27</span>
+    <span class="fl">School &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : St. Xavier's Jr./Sr. School</span>
+    <span class="fl">Guided by &nbsp;&nbsp;: _______________________________</span>
+  </div>
+  <div class="page-num">8</div>
+</div>
+
+<!-- PAGE 9: What is Vocational Education + Importance -->
+<div class="page ruled-page">
+  <span class="section-heading">Vocational Education</span>
+
+  <span class="sub-heading">What is Vocational Education?</span>
+  <span class="ln">Vocational Education is a type of education that provides</span>
+  <span class="ln">students with practical skills and hands-on training to prepare</span>
+  <span class="ln">them for specific jobs and careers. Unlike traditional education</span>
+  <span class="ln">that focuses only on theory, vocational education focuses on</span>
+  <span class="ln">learning by doing. It covers areas such as agriculture, health</span>
+  <span class="ln">care, technology, handicrafts, and home science.</span>
+
+  <span class="sub-heading">Importance of Vocational Education</span>
+  <ul class="hw-list">
+    <li>Develops <em>practical life skills</em> useful in everyday situations.</li>
+    <li>Prepares students for employment immediately after school.</li>
+    <li>Promotes <em>scientific thinking</em> and problem-solving abilities.</li>
+    <li>Encourages <em>environmental awareness</em> and sustainable practices.</li>
+    <li>Helps students understand the connection between <em>science and real life</em>.</li>
+    <li>Builds <em>confidence and creativity</em> through project-based learning.</li>
+    <li>Supports India's <em>Skill India Mission</em> — training youth for a stronger economy.</li>
+  </ul>
+  <div class="page-num">9</div>
+</div>
+
+<!-- PAGE 10: Hydroponics Project Cover -->
+<div class="page blank-page cov-proj">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="subject-badge" style="background:#0e6b40;">Project – 1</div>
+  <div class="cover-title" style="color:#073d26; font-size:40px;">Hydroponics</div>
+  <div class="cover-subtitle" style="color:#0e6b40; font-size:24px;">Growing Plants Without Soil</div>
+  <div class="cover-divider" style="color:#073d26;"></div>
+  <div class="img-frame" style="width:440px; margin-top:8px;">
+    <img src="V3.png" alt="Hydroponics lettuce">
+  </div>
+  <div class="img-caption" style="color:#073d26;">Lettuce growing in a hydroponic system — no soil needed</div>
+  <div class="cover-school" style="color:#073d26; margin-top:20px;">Vocational Education — Class VIII &nbsp;•&nbsp; 2026–27</div>
+  <div class="page-num">10</div>
+</div>
+
+<!-- PAGE 11: Hydroponics Introduction + Learning Outcomes -->
+<div class="page ruled-page">
+  <span class="section-heading">Project 1 : Hydroponics — Introduction</span>
+
+  <span class="sub-heading">Introduction</span>
+  <span class="ln">Hydroponics is a modern method of growing plants without using</span>
+  <span class="ln">soil. Instead of soil, plants are grown in water enriched with</span>
+  <span class="ln">essential nutrients. This technique provides all the minerals and</span>
+  <span class="ln">conditions required for healthy plant growth in a clean and</span>
+  <span class="ln">controlled environment.</span>
+  <span class="gap"></span>
+  <span class="ln">In this project, students explore how plants can grow using only</span>
+  <span class="ln">water, light, and nutrient solutions. They learn about different</span>
+  <span class="ln">hydroponic systems and observe plant growth over time.</span>
+
+  <span class="sub-heading">Learning Outcomes</span>
+  <span class="ln">By the end of this project, I learnt to :</span>
+  <ul class="hw-list">
+    <li>Grow healthy microgreens using a basic hydroponics setup.</li>
+    <li>Establish Wick, Deep Water Culture (DWC), and NFT systems.</li>
+    <li>Prepare organic liquid manure (compost tea).</li>
+    <li>Improve water quality by adjusting pH level.</li>
+    <li>Understand sustainable and eco-friendly farming methods.</li>
+  </ul>
+  <div class="page-num">11</div>
+</div>
+
+
+<!-- ██ ACTIVITY 1 ██ -->
+<!-- PAGE 12: Activity 1 Blank -->
+<div class="page blank-page cov-act">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="activity-strip" style="background:#c47a00;">Activity 1</div>
+  <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">
+    Growing Microgreens<br>for a Healthy Salad
+  </div>
+  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="img-frame" style="width:460px;">
+    <img src="V4.png" alt="Microgreens tray">
+  </div>
+  <div class="img-caption" style="color:#6b3800;">Fresh microgreens growing in a tray — harvested in 7–10 days</div>
+  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+    Duration : 10 Days &nbsp;|&nbsp; Seeds : Spinach, Fenugreek, Mustard<br>
+    Medium : Cocopeat / Tissue Paper
+  </div>
+  <div class="page-num">12</div>
+</div>
+
+<!-- PAGE 13: Activity 1 Ruled -->
+<div class="page ruled-page">
+  <span class="activity-strip">Activity 1 — Growing Microgreens</span>
+
+  <span class="sub-heading">Procedure</span>
+  <ul class="hw-list">
+    <li>Take a plastic tray (10×30 cm) and make small drainage holes at the bottom.</li>
+    <li>Fill 2 inches of cocopeat or tissue paper and moisten with water using a spray bottle.</li>
+    <li>Spread seeds uniformly over the moist surface — do not overcrowd them.</li>
+    <li>Cover lightly with soil or tissue. Keep in a shaded area for 1–2 days for germination.</li>
+    <li>Mist once or twice daily to keep the surface moist but not soggy.</li>
+    <li>After germination, move to sunlight or under an LED grow light.</li>
+    <li>Harvest after 7–10 days when plants are about 3.5 cm tall using clean scissors.</li>
+  </ul>
+
+  <span class="sub-heading">Observation Table</span>
+  <span class="gap"></span>
+  <table class="obs-table">
+    <thead><tr><th>Parameter</th><th>Observation</th></tr></thead>
+    <tbody>
+      <tr><td>Date of Start</td><td>___________</td></tr>
+      <tr><td>Seeds Used</td><td>Spinach, Fenugreek</td></tr>
+      <tr><td>No. of Trays</td><td>2</td></tr>
+      <tr><td>Sprouting Days</td><td>3 days</td></tr>
+      <tr><td>Harvest Date</td><td>___________</td></tr>
+      <tr><td>Quantity Harvested</td><td>120 g</td></tr>
+      <tr><td>Challenges</td><td>Fungal growth</td></tr>
+    </tbody>
+  </table>
+  <span class="gap"></span>
+  <span class="sub-heading">Conclusion</span>
+  <span class="ln">Growing microgreens showed how nutritious food can be produced</span>
+  <span class="ln">quickly at home without needing soil or a farm. It taught the</span>
+  <span class="ln">importance of healthy eating and sustainable food production.</span>
+  <div class="page-num">13</div>
+</div>
+
+
+<!-- ██ ACTIVITY 2 ██ -->
+<!-- PAGE 14: Activity 2 Blank -->
+<div class="page blank-page cov-act">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="activity-strip" style="background:#c47a00;">Activity 2</div>
+  <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
+    Hydroponic System<br>Using "Wick Method"
+  </div>
+  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="img-frame" style="width:440px;">
+    <img src="V5.png" alt="Wick Method Hydroponic">
+  </div>
+  <div class="img-caption" style="color:#6b3800;">Wick Method — cotton wick draws nutrient solution up to the roots</div>
+  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+    Duration : 15 Days &nbsp;|&nbsp; No. of Bottles : 5<br>
+    Seeds : Coriander &nbsp;|&nbsp; Growth in 15 days : 12 cm
+  </div>
+  <div class="page-num">14</div>
+</div>
+
+<!-- PAGE 15: Activity 2 Ruled -->
+<div class="page ruled-page">
+  <span class="activity-strip">Activity 2 — Wick Method</span>
+
+  <span class="sub-heading">Procedure</span>
+  <ul class="hw-list">
+    <li>Take a used 2L PET bottle and cut it into two equal halves.</li>
+    <li>Make a small hole in the bottle cap and insert a cotton wick through it.</li>
+    <li>Invert the top half — it becomes the plant holder. Fill it with cocopeat.</li>
+    <li>The bottom half is the reservoir. Fill it with nutrient solution.</li>
+    <li>Place the inverted top half into the reservoir so the wick dips into the solution.</li>
+    <li>Plant seeds or seedlings in the cocopeat, around the wick.</li>
+    <li>Keep near sunlight. Refill the nutrient solution when level drops.</li>
+  </ul>
+
+  <span class="sub-heading">Observation Table</span>
+  <span class="gap"></span>
+  <table class="obs-table">
+    <thead><tr><th>Parameter</th><th>Observation</th></tr></thead>
+    <tbody>
+      <tr><td>No. of Bottles</td><td>5</td></tr>
+      <tr><td>Seeds Used</td><td>Coriander</td></tr>
+      <tr><td>Survival Rate</td><td>4 plants</td></tr>
+      <tr><td>Growth in 15 Days</td><td>12 cm</td></tr>
+    </tbody>
+  </table>
+  <span class="gap"></span>
+  <span class="sub-heading">Conclusion</span>
+  <span class="ln">The wick method showed how plants absorb nutrients through</span>
+  <span class="ln">capillary action without soil. It is the simplest hydroponic setup</span>
+  <span class="ln">and can be made entirely from recycled materials at home.</span>
+  <div class="page-num">15</div>
+</div>
+
+
+<!-- ██ ACTIVITY 3 ██ -->
+<!-- PAGE 16: Activity 3 Blank -->
+<div class="page blank-page cov-act">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="activity-strip" style="background:#c47a00;">Activity 3</div>
+  <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
+    Deep Water Culture (DWC)<br>— Bucket Method
+  </div>
+  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="img-frame" style="width:440px;">
+    <img src="V6.png" alt="DWC System">
+  </div>
+  <div class="img-caption" style="color:#6b3800;">Deep Water Culture — roots suspended in oxygenated nutrient water</div>
+  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+    <table class="cost-table" style="width:80%; font-size:19px; margin:0 auto;">
+      <thead><tr><th>Component</th><th>Cost (₹)</th></tr></thead>
+      <tbody>
+        <tr><td>Bucket</td><td>150</td></tr>
+        <tr><td>Aerator</td><td>300</td></tr>
+        <tr><td>Net cups</td><td>100</td></tr>
+        <tr><td>Media</td><td>50</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>600</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-num">16</div>
+</div>
+
+<!-- PAGE 17: Activity 3 Ruled -->
+<div class="page ruled-page">
+  <span class="activity-strip">Activity 3 — Deep Water Culture (DWC)</span>
+
+  <span class="sub-heading">Procedure</span>
+  <ul class="hw-list">
+    <li>Take a 15-litre bucket and make round holes in the lid using a hole saw cutter.</li>
+    <li>Place net cups (filled with cocopeat/sand) into each hole firmly.</li>
+    <li>Fill the bucket with nutrient-rich water so it just touches the base of the net cups.</li>
+    <li>Place an aerator (fish tank aerator) inside the bucket to dissolve oxygen in the water.</li>
+    <li>Plant 2–3 spinach seedlings in each net cup; maintain 5–10 cm spacing.</li>
+    <li>Check water level, aerator function, and root colour regularly.</li>
+    <li>Healthy roots should be white. Brown roots indicate lack of dissolved oxygen.</li>
+  </ul>
+
+  <span class="sub-heading">Growth Observation</span>
+  <span class="gap"></span>
+  <table class="obs-table">
+    <thead><tr><th>Crop</th><th>Growth / Week</th><th>Harvest</th></tr></thead>
+    <tbody>
+      <tr><td>Spinach</td><td>5 cm</td><td>250 g</td></tr>
+    </tbody>
+  </table>
+  <span class="gap"></span>
+  <span class="sub-heading">Conclusion</span>
+  <span class="ln">The DWC system showed how proper aeration and nutrient-rich</span>
+  <span class="ln">water support healthy root growth and fast plant development.</span>
+  <span class="ln">It is an efficient and cost-effective method for growing vegetables.</span>
+  <div class="page-num">17</div>
+</div>
+
+
+<!-- ██ ACTIVITY 4 ██ -->
+<!-- PAGE 18: Activity 4 Blank -->
+<div class="page blank-page cov-act">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="activity-strip" style="background:#c47a00;">Activity 4</div>
+  <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
+    Nutrient Film Technique<br>(NFT) System
+  </div>
+  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="img-frame" style="width:460px;">
+    <img src="V7.png" alt="NFT System">
+  </div>
+  <div class="img-caption" style="color:#6b3800;">NFT — thin film of nutrient solution flows continuously through PVC channels</div>
+  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+    Duration : 30 Days &nbsp;|&nbsp; Crop : Lettuce (8 plants)<br>
+    Growth : Fast &nbsp;|&nbsp; Leaf Colour : Dark Green
+  </div>
+  <div class="page-num">18</div>
+</div>
+
+<!-- PAGE 19: Activity 4 Ruled -->
+<div class="page ruled-page">
+  <span class="activity-strip">Activity 4 — Nutrient Film Technique (NFT)</span>
+
+  <span class="sub-heading">Procedure</span>
+  <ul class="hw-list">
+    <li>Use 1-metre PVC pipes (2–3 inches diameter) as growing channels. Drill evenly spaced holes.</li>
+    <li>Arrange channels on a frame at a slight slope (2–4%) so water flows continuously.</li>
+    <li>Set up a nutrient reservoir (20–40 litres) with hydroponic nutrient solution.</li>
+    <li>Place a submersible pump inside the reservoir and connect it to the top channel inlet.</li>
+    <li>Put a return pipe at the channel outlet to bring solution back to the reservoir.</li>
+    <li>Place net pots filled with clay pebbles and seedlings into the channel holes.</li>
+    <li>Switch on the pump — check that a thin film of water flows along each channel floor.</li>
+    <li>Maintain pH between 5.5 and 6.5. Replace nutrient solution every 1–2 weeks.</li>
+  </ul>
+
+  <span class="sub-heading">Growth Observation</span>
+  <span class="gap"></span>
+  <table class="obs-table">
+    <thead><tr><th>Crop</th><th>Plants</th><th>Growth</th><th>Leaf Colour</th></tr></thead>
+    <tbody>
+      <tr><td>Lettuce</td><td>8</td><td>Fast</td><td>Dark Green</td></tr>
+    </tbody>
+  </table>
+  <span class="gap"></span>
+  <span class="sub-heading">Conclusion</span>
+  <span class="ln">NFT is one of the most efficient hydroponic systems. It uses</span>
+  <span class="ln">less water than traditional farming and produces fast, healthy</span>
+  <span class="ln">crop growth in a very small space.</span>
+  <div class="page-num">19</div>
+</div>
+
+
+<!-- ██ ACTIVITY 5 ██ -->
+<!-- PAGE 20: Activity 5 Blank -->
+<div class="page blank-page cov-act">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="activity-strip" style="background:#c47a00;">Activity 5</div>
+  <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">Making Compost Tea</div>
+  <div class="cover-subtitle" style="color:#8b4500;">Organic Liquid Fertilizer</div>
+  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="img-frame" style="width:380px;">
+    <img src="V8.png" alt="Compost Tea bucket brewing">
+  </div>
+  <div class="img-caption" style="color:#6b3800;">Compost tea brewing — dark brown, earthy-smelling liquid fertilizer</div>
+  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+    Duration : 3–4 Days &nbsp;|&nbsp; 150 g Compost + 10 L Water + 50 g Jaggery<br>
+    Aerate Continuously for 3 Days
+  </div>
+  <div class="page-num">20</div>
+</div>
+
+<!-- PAGE 21: Activity 5 Ruled -->
+<div class="page ruled-page">
+  <span class="activity-strip">Activity 5 — Making Compost Tea</span>
+
+  <span class="sub-heading">Procedure</span>
+  <ul class="hw-list">
+    <li>Take well-finished, mature compost — dark, crumbly, with an earthy smell.</li>
+    <li>Fill a clean bucket with 10 litres of non-chlorinated (or dechlorinated) water.</li>
+    <li>Put 150 g of compost into a muslin cloth bag and tie it tightly.</li>
+    <li>Place the compost bag into the bucket of water.</li>
+    <li>Add 50 g of jaggery or molasses to encourage microbial growth; stir well.</li>
+    <li>Place an aquarium air pump to aerate the mixture for 24–36 hours.</li>
+    <li>Stir the mixture 2–3 times a day if no pump is used.</li>
+    <li>Let the compost steep for 24–48 hours — the water turns brown.</li>
+    <li>Remove the compost bag, squeeze gently; the compost tea is ready to use.</li>
+  </ul>
+
+  <span class="sub-heading">Observation Table</span>
+  <span class="gap"></span>
+  <table class="obs-table">
+    <thead><tr><th>Parameter</th><th>Observation</th></tr></thead>
+    <tbody>
+      <tr><td>Colour</td><td>Brown</td></tr>
+      <tr><td>Smell</td><td>Earthy</td></tr>
+      <tr><td>Foam</td><td>Present</td></tr>
+    </tbody>
+  </table>
+  <span class="gap"></span>
+  <span class="sub-heading">Conclusion</span>
+  <span class="ln">Compost tea is a simple, eco-friendly, powerful liquid fertilizer.</span>
+  <span class="ln">This activity taught us how organic waste can be recycled into</span>
+  <span class="ln">nutrients that improve soil health and boost plant growth naturally.</span>
+  <div class="page-num">21</div>
+</div>
+
+
+<!-- ██ ACTIVITY 6 ██ -->
+<!-- PAGE 22: Activity 6 Blank -->
+<div class="page blank-page cov-act">
+  <div class="deco-border"></div><div class="deco-border-inner"></div>
+  <div class="activity-strip" style="background:#c47a00;">Activity 6</div>
+  <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">Maintaining Water pH</div>
+  <div class="cover-subtitle" style="color:#8b4500;">Ideal pH for Hydroponics : 6.5 – 7.0</div>
+  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="img-frame" style="width:400px;">
+    <img src="V9.png" alt="pH meter in water">
+  </div>
+  <div class="img-caption" style="color:#6b3800;">A digital pH meter used to measure and adjust water pH level</div>
+  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+    Initial pH : 7.5 &nbsp;→&nbsp; Acid used : Vinegar &nbsp;→&nbsp; Final pH : 6.8<br>
+    Root Effect : Healthy white roots observed
+  </div>
+  <div class="page-num">22</div>
+</div>
+
+<!-- PAGE 23: Activity 6 Ruled -->
+<div class="page ruled-page">
+  <span class="activity-strip">Activity 6 — Maintaining Water pH</span>
+
+  <span class="sub-heading">Why pH Matters in Hydroponics</span>
+  <span class="ln">pH is a measure of how acidic or alkaline water is. The ideal</span>
+  <span class="ln">pH range for most hydroponic plants is 5.5–6.5. If pH is too</span>
+  <span class="ln">low (acidic), water harms roots. If too high (alkaline), plants</span>
+  <span class="ln">cannot absorb nutrients properly and growth is stunted.</span>
+
+  <span class="sub-heading">Procedure</span>
+  <ul class="hw-list">
+    <li>Collect a water sample from the hydroponic system in a clean bucket.</li>
+    <li>Dip a digital pH meter probe into the water and note the reading.</li>
+    <li>If pH is too low → add pH Up solution (alkaline) drop by drop.</li>
+    <li>If pH is too high → add pH Down solution (e.g., vinegar) drop by drop.</li>
+    <li>Stir the water and re-test after each addition. Never add too much at once.</li>
+    <li>Once pH reaches 6.5–7.0, the water is ready for the hydroponic system.</li>
+    <li>Rinse the pH meter probe with distilled water after use and store safely.</li>
+  </ul>
+
+  <span class="sub-heading">pH Observation Table</span>
+  <span class="gap"></span>
+  <table class="obs-table">
+    <thead><tr><th>Parameter</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>Initial pH</td><td>7.5</td></tr>
+      <tr><td>Acid Used</td><td>Vinegar</td></tr>
+      <tr><td>Final pH</td><td>6.8</td></tr>
+      <tr><td>Root Effect</td><td>Healthy white roots</td></tr>
+    </tbody>
+  </table>
+  <span class="gap"></span>
+  <span class="sub-heading">Conclusion</span>
+  <span class="ln">Maintaining the correct pH is essential for healthy plant growth</span>
+  <span class="ln">in hydroponics. This activity taught accurate measurement, safe</span>
+  <span class="ln">handling of chemicals, and the science of water quality management.</span>
+  <div class="page-num">23</div>
+</div>
+
+</body>
+</html>
+d>Acid Used</td><td>Vinegar</td></tr>
+      <tr><td>Final pH</td><td>6.8</td></tr>
+      <tr><td>Root Effect</td><td>Healthy white roots</td></tr>
+    </tbody>
+  </table>
+  <span class="gap"></span>
+  <span class="sub-heading">Conclusion</span>
+  <span class="ln">Maintaining the correct pH is essential for healthy plant growth</span>
+  <span class="ln">in hydroponics. This activity taught accurate measurement, safe</span>
+  <span class="ln">handling of chemicals, and the science of water quality management.</span>
+  <div class="page-num">23</div>
+</div>
+
+</body>
+</html>
