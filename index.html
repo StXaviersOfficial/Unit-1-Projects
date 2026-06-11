@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +9,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --line: 38px;        /* height of ONE ruled line */
-  --margin-l: 88px;    /* left margin after red line */
-  --pad-top: 76px;     /* 2 lines of top padding */
+  --line: 38px;
+  --margin-l: 88px;
+  --pad-top: 76px;
   --pad-side: 52px;
 }
 
@@ -43,11 +44,7 @@ body {
   min-height: 1123px;
 }
 
-/* ─── RULED PAGE ─────────────────────────
-   Lines start at top=0 and repeat every --line px.
-   All text must be placed at multiples of --line.
-   line-height === --line keeps text ON the lines.
-──────────────────────────────────────────── */
+/* ─── RULED PAGE ───────────────────────── */
 .ruled-page {
   background-color: #fefefe;
   background-image:
@@ -62,19 +59,15 @@ body {
       #aecde8 calc(var(--line) - 1px),
       #aecde8 var(--line)
     );
-  /* pad-top must be a multiple of --line so text baseline aligns */
-  padding: var(--pad-top) var(--pad-side) var(--pad-top) var(--margin-l);
+  padding: var(--pad-top) 38px var(--pad-top) var(--margin-l);
   min-height: 1123px;
 }
 
-/* ─── TYPOGRAPHY ON RULED PAGES ─────────
-   Every text element must have line-height: var(--line)
-   and margin that is a multiple of var(--line).
-──────────────────────────────────────────── */
 .ruled-page * {
   line-height: var(--line);
 }
 
+/* ─── HEADINGS ─────────────────────────── */
 .section-heading {
   font-family: 'Caveat Brush', cursive;
   font-size: 30px;
@@ -84,6 +77,7 @@ body {
   margin-bottom: var(--line);
   display: block;
   line-height: var(--line);
+  text-align: center;
 }
 
 .sub-heading {
@@ -96,9 +90,9 @@ body {
   line-height: var(--line);
   text-decoration: underline;
   text-underline-offset: 3px;
+  text-align: center;
 }
 
-/* paragraph lines — each .ln is exactly one ruled line */
 .ln {
   display: block;
   line-height: var(--line);
@@ -120,7 +114,7 @@ body {
   color: #8b0000;
 }
 
-/* ─── STUDENT BOX ───────────────────────── */
+/* ─── STUDENT BOX ─────────────────────── */
 .student-box {
   border: 2px dashed #8b0000;
   padding: 0 18px;
@@ -128,15 +122,13 @@ body {
   border-radius: 4px;
   background: rgba(255,255,255,0.55);
 }
-/* each field fills exactly one line */
 .student-box .ln { font-size: 20px; }
 
-/* ─── TABLES ─────────────────────────────── */
+/* ─── TABLES ──────────────────────────── */
 table.hw-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 19px;
-  /* table rows snap: each row = --line */
 }
 table.hw-table th {
   background: #1e3a5f;
@@ -154,28 +146,6 @@ table.hw-table td {
   line-height: 1.3;
 }
 table.hw-table tr:nth-child(even) td { background: rgba(174,205,232,0.18); }
-
-table.obs-table {
-  width: 82%;
-  margin: 0 auto;
-  border-collapse: collapse;
-  font-size: 19px;
-}
-table.obs-table th {
-  background: #1a7a42;
-  color: #fff;
-  padding: 6px 14px;
-  font-family: 'Caveat Brush', cursive;
-  font-size: 19px;
-  border: 1.5px solid #1a7a42;
-  line-height: 1.2;
-}
-table.obs-table td {
-  border: 1.5px solid #1a7a42;
-  padding: 6px 14px;
-  line-height: 1.3;
-}
-table.obs-table tr:nth-child(even) td { background: #f0fff4; }
 
 table.cost-table {
   width: 58%;
@@ -198,7 +168,52 @@ table.cost-table td {
   line-height: 1.3;
 }
 
-/* ─── BLANK PAGE ELEMENTS ───────────────── */
+/* ─── HAND-DRAWABLE OBSERVATION TABLE ─── */
+.obs-draw {
+  width: 92%;
+  margin: 6px auto;
+  border: 2px solid #1a7a42;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.obs-draw-header {
+  background: #1a7a42;
+  color: #fff;
+  font-family: 'Caveat Brush', cursive;
+  font-size: 20px;
+  display: flex;
+  border-bottom: 2px solid #1a7a42;
+}
+.obs-draw-header span {
+  flex: 1;
+  padding: 5px 12px;
+  border-right: 1.5px solid rgba(255,255,255,0.4);
+  line-height: 1.3;
+}
+.obs-draw-header span:last-child { border-right: none; }
+.obs-draw-row {
+  display: flex;
+  border-bottom: 1.5px solid #1a7a42;
+  font-size: 20px;
+}
+.obs-draw-row:last-child { border-bottom: none; }
+.obs-draw-row span {
+  flex: 1;
+  padding: 5px 12px;
+  border-right: 1.5px solid #1a7a42;
+  line-height: 1.3;
+  min-height: 34px;
+}
+.obs-draw-row span:last-child { border-right: none; }
+.obs-draw-row:nth-child(even) span { background: #f0fff4; }
+
+/* blank fill row */
+.obs-draw-row .blank-cell {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* ─── BLANK PAGE ELEMENTS ─────────────── */
 .subject-badge {
   background: #2c3e50; color: #fff;
   font-family: 'Caveat Brush', cursive;
@@ -237,13 +252,12 @@ table.cost-table td {
   border-radius: 3px; pointer-events: none;
 }
 
-/* image frames */
-.img-frame {
-  border: 2.5px solid #aaa;
+/* image — NO border, just clean */
+.img-clean {
   border-radius: 6px; overflow: hidden;
   margin: 16px auto; display: block;
 }
-.img-frame img { width: 100%; height: auto; display: block; }
+.img-clean img { width: 100%; height: auto; display: block; }
 .img-caption {
   font-size: 17px; color: #555;
   text-align: center; margin-top: 5px;
@@ -254,8 +268,10 @@ table.cost-table td {
   font-family: 'Caveat Brush', cursive;
   font-size: 24px;
   padding: 6px 20px; border-radius: 4px;
-  display: inline-block; margin-bottom: var(--line);
+  display: block;
+  margin-bottom: var(--line);
   line-height: 1.3;
+  text-align: center;
 }
 
 .info-pill {
@@ -266,7 +282,6 @@ table.cost-table td {
   text-align: center; width: 88%;
 }
 
-/* student fill box on cover */
 .cover-fill {
   background: rgba(255,255,255,0.72);
   border: 2px solid currentColor;
@@ -278,7 +293,6 @@ table.cost-table td {
   line-height: 1.8; color: #333;
 }
 
-/* page number */
 .page-num {
   position: absolute; bottom: 14px; right: 20px;
   font-size: 16px; color: #bbb;
@@ -290,6 +304,15 @@ table.cost-table td {
 .cov-proj  { background: linear-gradient(155deg,#e5f5ee 0%,#b8e8d0 55%,#88d8b0 100%); }
 .cov-act   { background: linear-gradient(155deg,#fef5e5 0%,#fde5b8 55%,#f8cc88 100%); }
 .cov-solar { background: linear-gradient(155deg,#fff8e0 0%,#ffe8a0 55%,#ffd060 100%); }
+
+/* intro box on ruled pages */
+.intro-box {
+  border-left: 4px solid #1a7a42;
+  background: rgba(26,122,66,0.06);
+  padding: 4px 14px;
+  margin-bottom: 4px;
+  border-radius: 0 4px 4px 0;
+}
 
 </style>
 </head>
@@ -306,7 +329,7 @@ table.cost-table td {
   <div class="cover-title" style="color:#0d3b6e;">Social Science<br>Project Work</div>
   <div class="cover-divider" style="color:#0d3b6e;"></div>
   <div class="cover-subtitle">Indian Political Parties &amp; Solar Energy</div>
-  <div class="img-frame" style="width:340px;">
+  <div class="img-clean" style="width:340px;">
     <img src="V1.png" alt="India Map">
   </div>
   <div class="img-caption">Political Map of India</div>
@@ -379,7 +402,7 @@ table.cost-table td {
   <div class="cover-title" style="color:#7a3a00; font-size:44px;">Solar Energy</div>
   <div class="cover-divider" style="color:#7a3a00;"></div>
   <div class="cover-subtitle" style="color:#8b4500;">Harnessing the Power of the Sun</div>
-  <div class="img-frame" style="width:420px; margin-top:14px;">
+  <div class="img-clean" style="width:420px; margin-top:14px;">
     <img src="V2.png" alt="Solar Panels">
   </div>
   <div class="img-caption" style="color:#7a3a00;">Solar panels — converting sunlight into electricity</div>
@@ -521,10 +544,10 @@ table.cost-table td {
   <div class="cover-title" style="color:#073d26; font-size:40px;">Hydroponics</div>
   <div class="cover-subtitle" style="color:#0e6b40; font-size:24px;">Growing Plants Without Soil</div>
   <div class="cover-divider" style="color:#073d26;"></div>
-  <div class="img-frame" style="width:440px; margin-top:8px;">
+  <div class="img-clean" style="width:440px; margin-top:8px;">
     <img src="V3.png" alt="Hydroponics lettuce">
   </div>
-  <div class="img-caption" style="color:#073d26;">Lettuce growing in a hydroponic system — no soil needed</div>
+  <div class="img-caption" style="color:#073d26;">Lettuce thriving in a hydroponic system — no soil required</div>
   <div class="cover-school" style="color:#073d26; margin-top:20px;">Vocational Education — Class VIII &nbsp;•&nbsp; 2026–27</div>
   <div class="page-num">10</div>
 </div>
@@ -534,15 +557,18 @@ table.cost-table td {
   <span class="section-heading">Project 1 : Hydroponics — Introduction</span>
 
   <span class="sub-heading">Introduction</span>
-  <span class="ln">Hydroponics is a modern method of growing plants without using</span>
-  <span class="ln">soil. Instead of soil, plants are grown in water enriched with</span>
-  <span class="ln">essential nutrients. This technique provides all the minerals and</span>
-  <span class="ln">conditions required for healthy plant growth in a clean and</span>
-  <span class="ln">controlled environment.</span>
+  <span class="ln">Hydroponics is a modern, scientifically advanced method of</span>
+  <span class="ln">cultivating plants without using traditional soil. Instead, plants</span>
+  <span class="ln">are grown in water enriched with essential nutrients, supplying</span>
+  <span class="ln">all the minerals and conditions required for vigorous, healthy</span>
+  <span class="ln">growth in a clean, controlled environment.</span>
   <span class="gap"></span>
-  <span class="ln">In this project, students explore how plants can grow using only</span>
-  <span class="ln">water, light, and nutrient solutions. They learn about different</span>
-  <span class="ln">hydroponic systems and observe plant growth over time.</span>
+  <span class="ln">In this project, students explore how plants can thrive using</span>
+  <span class="ln">only water, light, and carefully prepared nutrient solutions.</span>
+  <span class="ln">They investigate different hydroponic systems, observe plant</span>
+  <span class="ln">development over time, and appreciate how technology can</span>
+  <span class="ln">revolutionise agriculture — especially in areas with limited</span>
+  <span class="ln">fertile soil or scarce water resources.</span>
 
   <span class="sub-heading">Learning Outcomes</span>
   <span class="ln">By the end of this project, I learnt to :</span>
@@ -550,139 +576,162 @@ table.cost-table td {
     <li>Grow healthy microgreens using a basic hydroponics setup.</li>
     <li>Establish Wick, Deep Water Culture (DWC), and NFT systems.</li>
     <li>Prepare organic liquid manure (compost tea).</li>
-    <li>Improve water quality by adjusting pH level.</li>
-    <li>Understand sustainable and eco-friendly farming methods.</li>
+    <li>Improve water quality by accurately adjusting pH level.</li>
+    <li>Appreciate sustainable and eco-friendly farming methods.</li>
   </ul>
   <div class="page-num">11</div>
 </div>
 
 
 <!-- ██ ACTIVITY 1 ██ -->
-<!-- PAGE 12: Activity 1 Blank -->
+<!-- PAGE 12: Activity 1 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00;">Activity 1</div>
+  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 1</div>
   <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">
     Growing Microgreens<br>for a Healthy Salad
   </div>
   <div class="cover-divider" style="color:#6b3800;"></div>
-  <div class="img-frame" style="width:460px;">
+  <div class="img-clean" style="width:460px;">
     <img src="V4.png" alt="Microgreens tray">
   </div>
-  <div class="img-caption" style="color:#6b3800;">Fresh microgreens growing in a tray — harvested in 7–10 days</div>
+  <div class="img-caption" style="color:#6b3800;">Fresh microgreens sprouting in a tray — ready to harvest in 7–10 days</div>
   <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
-    Duration : 10 Days &nbsp;|&nbsp; Seeds : Spinach, Fenugreek, Mustard<br>
-    Medium : Cocopeat / Tissue Paper
+    Duration : 10 Days &nbsp;|&nbsp; Seeds : Spinach &amp; Fenugreek<br>
+    Medium : Cocopeat &nbsp;|&nbsp; Trays Used : 2
   </div>
   <div class="page-num">12</div>
 </div>
 
 <!-- PAGE 13: Activity 1 Ruled -->
 <div class="page ruled-page">
-  <span class="activity-strip">Activity 1 — Growing Microgreens</span>
+  <span class="activity-strip">Activity 1 — Growing Microgreens for a Healthy Salad</span>
+
+  <span class="sub-heading">Introduction</span>
+  <div class="intro-box">
+    <span class="ln">Growing microgreens is one of the easiest and most rewarding ways</span>
+    <span class="ln">for students to understand how nutritious food can be produced</span>
+    <span class="ln">within just a few days. Microgreens are young, tender plants</span>
+    <span class="ln">harvested shortly after germination and are densely packed with</span>
+    <span class="ln">vitamins and minerals. This activity allows students to experience</span>
+    <span class="ln">the complete cycle — from seed selection and tray preparation to</span>
+    <span class="ln">caring for sprouts and finally harvesting fresh microgreens to</span>
+    <span class="ln">prepare a wholesome, healthy salad.</span>
+  </div>
 
   <span class="sub-heading">Procedure</span>
   <ul class="hw-list">
     <li>Take a plastic tray (10×30 cm) and make small drainage holes at the bottom.</li>
-    <li>Fill 2 inches of cocopeat or tissue paper and moisten with water using a spray bottle.</li>
-    <li>Spread seeds uniformly over the moist surface — do not overcrowd them.</li>
-    <li>Cover lightly with soil or tissue. Keep in a shaded area for 1–2 days for germination.</li>
-    <li>Mist once or twice daily to keep the surface moist but not soggy.</li>
-    <li>After germination, move to sunlight or under an LED grow light.</li>
-    <li>Harvest after 7–10 days when plants are about 3.5 cm tall using clean scissors.</li>
+    <li>Fill 2 inches of cocopeat or tissue paper and moisten evenly using a spray bottle.</li>
+    <li>Sprinkle seeds (spinach, fenugreek) uniformly — do not overcrowd.</li>
+    <li>Cover lightly with soil or tissue; place in shade for 1–2 days for germination.</li>
+    <li>Mist gently once or twice daily to keep the surface moist, never soggy.</li>
+    <li>After germination, move tray near sunlight or under an LED grow light.</li>
+    <li>Harvest after 7–10 days when plants reach 3.5 cm — use clean scissors.</li>
   </ul>
 
   <span class="sub-heading">Observation Table</span>
   <span class="gap"></span>
-  <table class="obs-table">
-    <thead><tr><th>Parameter</th><th>Observation</th></tr></thead>
-    <tbody>
-      <tr><td>Date of Start</td><td>___________</td></tr>
-      <tr><td>Seeds Used</td><td>Spinach, Fenugreek</td></tr>
-      <tr><td>No. of Trays</td><td>2</td></tr>
-      <tr><td>Sprouting Days</td><td>3 days</td></tr>
-      <tr><td>Harvest Date</td><td>___________</td></tr>
-      <tr><td>Quantity Harvested</td><td>120 g</td></tr>
-      <tr><td>Challenges</td><td>Fungal growth</td></tr>
-    </tbody>
-  </table>
+  <div class="obs-draw">
+    <div class="obs-draw-header"><span>Parameter</span><span>Observation</span></div>
+    <div class="obs-draw-row"><span>Date of Start</span><span class="blank-cell">____________</span></div>
+    <div class="obs-draw-row"><span>Seeds Used</span><span>Spinach, Fenugreek</span></div>
+    <div class="obs-draw-row"><span>No. of Trays</span><span>2</span></div>
+    <div class="obs-draw-row"><span>Sprouting Days</span><span>3 days</span></div>
+    <div class="obs-draw-row"><span>Harvest Date</span><span class="blank-cell">____________</span></div>
+    <div class="obs-draw-row"><span>Quantity Harvested</span><span>120 g</span></div>
+    <div class="obs-draw-row"><span>Challenges Faced</span><span>Fungal growth</span></div>
+  </div>
   <span class="gap"></span>
   <span class="sub-heading">Conclusion</span>
-  <span class="ln">Growing microgreens showed how nutritious food can be produced</span>
-  <span class="ln">quickly at home without needing soil or a farm. It taught the</span>
-  <span class="ln">importance of healthy eating and sustainable food production.</span>
+  <span class="ln">Growing microgreens demonstrated how nutritious food can be</span>
+  <span class="ln">produced quickly and sustainably at home without soil or farmland.</span>
+  <span class="ln">It reinforced the importance of healthy eating, scientific</span>
+  <span class="ln">observation, and responsible food production.</span>
   <div class="page-num">13</div>
 </div>
 
 
 <!-- ██ ACTIVITY 2 ██ -->
-<!-- PAGE 14: Activity 2 Blank -->
+<!-- PAGE 14: Activity 2 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00;">Activity 2</div>
+  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 2</div>
   <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
-    Hydroponic System<br>Using "Wick Method"
+    Hydroponic System<br>Using the "Wick Method"
   </div>
   <div class="cover-divider" style="color:#6b3800;"></div>
-  <div class="img-frame" style="width:440px;">
+  <div class="img-clean" style="width:440px;">
     <img src="V5.png" alt="Wick Method Hydroponic">
   </div>
-  <div class="img-caption" style="color:#6b3800;">Wick Method — cotton wick draws nutrient solution up to the roots</div>
+  <div class="img-caption" style="color:#6b3800;">Wick Method — a cotton wick draws nutrient solution up to plant roots via capillary action</div>
   <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
     Duration : 15 Days &nbsp;|&nbsp; No. of Bottles : 5<br>
-    Seeds : Coriander &nbsp;|&nbsp; Growth in 15 days : 12 cm
+    Seeds : Coriander &nbsp;|&nbsp; Growth in 15 Days : 12 cm
   </div>
   <div class="page-num">14</div>
 </div>
 
 <!-- PAGE 15: Activity 2 Ruled -->
 <div class="page ruled-page">
-  <span class="activity-strip">Activity 2 — Wick Method</span>
+  <span class="activity-strip">Activity 2 — Building a Hydroponic System Using the Wick Method</span>
+
+  <span class="sub-heading">Introduction</span>
+  <div class="intro-box">
+    <span class="ln">The Wick Method is the simplest and most beginner-friendly way</span>
+    <span class="ln">to grow plants without soil. In this activity, students learn how</span>
+    <span class="ln">to build a basic hydroponic system using easily available materials</span>
+    <span class="ln">— a container, wicks, and a growing medium. By assembling this</span>
+    <span class="ln">system, students understand how plants absorb water and nutrients</span>
+    <span class="ln">through capillary action and grow efficiently without soil. This</span>
+    <span class="ln">activity introduces modern, sustainable farming techniques and</span>
+    <span class="ln">fosters curiosity, creativity, and scientific thinking.</span>
+  </div>
 
   <span class="sub-heading">Procedure</span>
   <ul class="hw-list">
-    <li>Take a used 2L PET bottle and cut it into two equal halves.</li>
+    <li>Take a used 2L PET bottle; cut it into two equal halves using scissors.</li>
     <li>Make a small hole in the bottle cap and insert a cotton wick through it.</li>
     <li>Invert the top half — it becomes the plant holder. Fill it with cocopeat.</li>
-    <li>The bottom half is the reservoir. Fill it with nutrient solution.</li>
-    <li>Place the inverted top half into the reservoir so the wick dips into the solution.</li>
-    <li>Plant seeds or seedlings in the cocopeat, around the wick.</li>
-    <li>Keep near sunlight. Refill the nutrient solution when level drops.</li>
+    <li>The bottom half is the reservoir. Fill it with prepared nutrient solution.</li>
+    <li>Place the inverted top into the reservoir so the wick dips into the solution.</li>
+    <li>Sow seeds or seedlings in the cocopeat, placing them around the wick.</li>
+    <li>Keep the setup near sunlight and refill the nutrient solution as it depletes.</li>
   </ul>
 
   <span class="sub-heading">Observation Table</span>
   <span class="gap"></span>
-  <table class="obs-table">
-    <thead><tr><th>Parameter</th><th>Observation</th></tr></thead>
-    <tbody>
-      <tr><td>No. of Bottles</td><td>5</td></tr>
-      <tr><td>Seeds Used</td><td>Coriander</td></tr>
-      <tr><td>Survival Rate</td><td>4 plants</td></tr>
-      <tr><td>Growth in 15 Days</td><td>12 cm</td></tr>
-    </tbody>
-  </table>
+  <div class="obs-draw">
+    <div class="obs-draw-header"><span>Parameter</span><span>Observation</span></div>
+    <div class="obs-draw-row"><span>No. of Bottles</span><span>5</span></div>
+    <div class="obs-draw-row"><span>Seeds Used</span><span>Coriander</span></div>
+    <div class="obs-draw-row"><span>Survival Rate</span><span>4 plants</span></div>
+    <div class="obs-draw-row"><span>Growth in 15 Days</span><span>12 cm</span></div>
+  </div>
   <span class="gap"></span>
   <span class="sub-heading">Conclusion</span>
-  <span class="ln">The wick method showed how plants absorb nutrients through</span>
-  <span class="ln">capillary action without soil. It is the simplest hydroponic setup</span>
-  <span class="ln">and can be made entirely from recycled materials at home.</span>
+  <span class="ln">The wick method clearly demonstrated how plants absorb water</span>
+  <span class="ln">and nutrients through capillary action without any soil. It is</span>
+  <span class="ln">the most accessible hydroponic setup and can be built entirely</span>
+  <span class="ln">from recycled materials, making it both eco-friendly and</span>
+  <span class="ln">cost-effective.</span>
   <div class="page-num">15</div>
 </div>
 
 
 <!-- ██ ACTIVITY 3 ██ -->
-<!-- PAGE 16: Activity 3 Blank -->
+<!-- PAGE 16: Activity 3 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00;">Activity 3</div>
+  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 3</div>
   <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
     Deep Water Culture (DWC)<br>— Bucket Method
   </div>
   <div class="cover-divider" style="color:#6b3800;"></div>
-  <div class="img-frame" style="width:440px;">
+  <div class="img-clean" style="width:440px;">
     <img src="V6.png" alt="DWC System">
   </div>
-  <div class="img-caption" style="color:#6b3800;">Deep Water Culture — roots suspended in oxygenated nutrient water</div>
+  <div class="img-caption" style="color:#6b3800;">Deep Water Culture — roots suspended in oxygenated nutrient-rich water</div>
   <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
     <table class="cost-table" style="width:80%; font-size:19px; margin:0 auto;">
       <thead><tr><th>Component</th><th>Cost (₹)</th></tr></thead>
@@ -700,49 +749,60 @@ table.cost-table td {
 
 <!-- PAGE 17: Activity 3 Ruled -->
 <div class="page ruled-page">
-  <span class="activity-strip">Activity 3 — Deep Water Culture (DWC)</span>
+  <span class="activity-strip">Activity 3 — Building a Hydroponic System Using Deep Water Culture (DWC)</span>
+
+  <span class="sub-heading">Introduction</span>
+  <div class="intro-box">
+    <span class="ln">In the Deep Water Culture (DWC) system, plant roots are suspended</span>
+    <span class="ln">directly in nutrient-rich water, and oxygen is continuously supplied</span>
+    <span class="ln">through an aerator to ensure healthy root development. This method</span>
+    <span class="ln">is simple, cost-effective, and ideal for growing leafy vegetables</span>
+    <span class="ln">such as spinach. By using recycled materials like buckets, plastic</span>
+    <span class="ln">sheets, and thermocol, students create a fully functional hydroponic</span>
+    <span class="ln">garden at home or school — experiencing the science of plant</span>
+    <span class="ln">nutrition firsthand.</span>
+  </div>
 
   <span class="sub-heading">Procedure</span>
   <ul class="hw-list">
-    <li>Take a 15-litre bucket and make round holes in the lid using a hole saw cutter.</li>
-    <li>Place net cups (filled with cocopeat/sand) into each hole firmly.</li>
-    <li>Fill the bucket with nutrient-rich water so it just touches the base of the net cups.</li>
-    <li>Place an aerator (fish tank aerator) inside the bucket to dissolve oxygen in the water.</li>
-    <li>Plant 2–3 spinach seedlings in each net cup; maintain 5–10 cm spacing.</li>
-    <li>Check water level, aerator function, and root colour regularly.</li>
-    <li>Healthy roots should be white. Brown roots indicate lack of dissolved oxygen.</li>
+    <li>Take a 15-litre bucket; ensure it does not leak and clean it thoroughly.</li>
+    <li>Create a lid using a plastic sheet or thermocol and cut round holes in it.</li>
+    <li>Place net cups (filled with cocopeat/sand) firmly into each hole.</li>
+    <li>Fill the bucket with nutrient-rich water so it just touches the base of the cups.</li>
+    <li>Place an aerator (fish tank pump) inside the bucket to dissolve oxygen.</li>
+    <li>Plant 2–3 spinach seedlings in each cup; maintain 5–10 cm spacing.</li>
+    <li>Monitor water level, aerator function, and root colour daily. White roots = healthy.</li>
   </ul>
 
   <span class="sub-heading">Growth Observation</span>
   <span class="gap"></span>
-  <table class="obs-table">
-    <thead><tr><th>Crop</th><th>Growth / Week</th><th>Harvest</th></tr></thead>
-    <tbody>
-      <tr><td>Spinach</td><td>5 cm</td><td>250 g</td></tr>
-    </tbody>
-  </table>
+  <div class="obs-draw">
+    <div class="obs-draw-header"><span>Crop</span><span>Growth / Week</span><span>Harvest</span></div>
+    <div class="obs-draw-row"><span>Spinach</span><span>5 cm</span><span>250 g</span></div>
+  </div>
   <span class="gap"></span>
   <span class="sub-heading">Conclusion</span>
-  <span class="ln">The DWC system showed how proper aeration and nutrient-rich</span>
-  <span class="ln">water support healthy root growth and fast plant development.</span>
-  <span class="ln">It is an efficient and cost-effective method for growing vegetables.</span>
+  <span class="ln">The DWC system vividly demonstrated how proper aeration and</span>
+  <span class="ln">nutrient-rich water support vigorous root growth and accelerated</span>
+  <span class="ln">plant development. It is an efficient, sustainable, and remarkably</span>
+  <span class="ln">cost-effective approach to urban agriculture.</span>
   <div class="page-num">17</div>
 </div>
 
 
 <!-- ██ ACTIVITY 4 ██ -->
-<!-- PAGE 18: Activity 4 Blank -->
+<!-- PAGE 18: Activity 4 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00;">Activity 4</div>
+  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 4</div>
   <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
     Nutrient Film Technique<br>(NFT) System
   </div>
   <div class="cover-divider" style="color:#6b3800;"></div>
-  <div class="img-frame" style="width:460px;">
+  <div class="img-clean" style="width:460px;">
     <img src="V7.png" alt="NFT System">
   </div>
-  <div class="img-caption" style="color:#6b3800;">NFT — thin film of nutrient solution flows continuously through PVC channels</div>
+  <div class="img-caption" style="color:#6b3800;">NFT — a thin film of nutrient solution flows continuously through inclined PVC channels</div>
   <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
     Duration : 30 Days &nbsp;|&nbsp; Crop : Lettuce (8 plants)<br>
     Growth : Fast &nbsp;|&nbsp; Leaf Colour : Dark Green
@@ -752,49 +812,60 @@ table.cost-table td {
 
 <!-- PAGE 19: Activity 4 Ruled -->
 <div class="page ruled-page">
-  <span class="activity-strip">Activity 4 — Nutrient Film Technique (NFT)</span>
+  <span class="activity-strip">Activity 4 — Building a Hydroponic System Using Nutrient Film Technique (NFT)</span>
+
+  <span class="sub-heading">Introduction</span>
+  <div class="intro-box">
+    <span class="ln">The Nutrient Film Technique (NFT) is one of the most efficient and</span>
+    <span class="ln">commercially used hydroponic systems worldwide. A thin, continuous</span>
+    <span class="ln">film of nutrient-rich water flows through inclined channels or PVC</span>
+    <span class="ln">pipes, bathing the roots of plants as it passes. Students assemble</span>
+    <span class="ln">this system to understand how plants absorb nutrients through</span>
+    <span class="ln">flowing water, how to design a water-efficient growing setup, and</span>
+    <span class="ln">how modern farming techniques can maximise food production even</span>
+    <span class="ln">in compact urban spaces.</span>
+  </div>
 
   <span class="sub-heading">Procedure</span>
   <ul class="hw-list">
-    <li>Use 1-metre PVC pipes (2–3 inches diameter) as growing channels. Drill evenly spaced holes.</li>
-    <li>Arrange channels on a frame at a slight slope (2–4%) so water flows continuously.</li>
-    <li>Set up a nutrient reservoir (20–40 litres) with hydroponic nutrient solution.</li>
-    <li>Place a submersible pump inside the reservoir and connect it to the top channel inlet.</li>
-    <li>Put a return pipe at the channel outlet to bring solution back to the reservoir.</li>
-    <li>Place net pots filled with clay pebbles and seedlings into the channel holes.</li>
-    <li>Switch on the pump — check that a thin film of water flows along each channel floor.</li>
-    <li>Maintain pH between 5.5 and 6.5. Replace nutrient solution every 1–2 weeks.</li>
+    <li>Use 1-metre PVC pipes (2–3 inch diameter); drill evenly spaced holes along the top.</li>
+    <li>Arrange channels on a metal or wooden frame at a 2–4% slope for continuous flow.</li>
+    <li>Set up a nutrient reservoir (20–40 litres) filled with hydroponic nutrient solution.</li>
+    <li>Place a submersible pump in the reservoir; connect a delivery tube to the top channel.</li>
+    <li>Fit a return pipe at the channel outlet to recirculate solution back to the reservoir.</li>
+    <li>Insert net pots filled with clay pebbles and seedlings into the drilled holes.</li>
+    <li>Switch on the pump — verify a thin film of water flows along each channel floor.</li>
+    <li>Maintain pH between 5.5–6.5 and replace nutrient solution every 1–2 weeks.</li>
   </ul>
 
   <span class="sub-heading">Growth Observation</span>
   <span class="gap"></span>
-  <table class="obs-table">
-    <thead><tr><th>Crop</th><th>Plants</th><th>Growth</th><th>Leaf Colour</th></tr></thead>
-    <tbody>
-      <tr><td>Lettuce</td><td>8</td><td>Fast</td><td>Dark Green</td></tr>
-    </tbody>
-  </table>
+  <div class="obs-draw">
+    <div class="obs-draw-header"><span>Crop</span><span>Plants</span><span>Growth</span><span>Leaf Colour</span></div>
+    <div class="obs-draw-row"><span>Lettuce</span><span>8</span><span>Fast</span><span>Dark Green</span></div>
+  </div>
   <span class="gap"></span>
   <span class="sub-heading">Conclusion</span>
-  <span class="ln">NFT is one of the most efficient hydroponic systems. It uses</span>
-  <span class="ln">less water than traditional farming and produces fast, healthy</span>
-  <span class="ln">crop growth in a very small space.</span>
+  <span class="ln">NFT proved to be one of the most water-efficient and productive</span>
+  <span class="ln">hydroponic systems. It delivers rapid, healthy crop growth in a</span>
+  <span class="ln">minimal footprint — a true testament to the power of innovative,</span>
+  <span class="ln">sustainable agriculture for the future.</span>
   <div class="page-num">19</div>
 </div>
 
 
 <!-- ██ ACTIVITY 5 ██ -->
-<!-- PAGE 20: Activity 5 Blank -->
+<!-- PAGE 20: Activity 5 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00;">Activity 5</div>
+  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 5</div>
   <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">Making Compost Tea</div>
   <div class="cover-subtitle" style="color:#8b4500;">Organic Liquid Fertilizer</div>
   <div class="cover-divider" style="color:#6b3800;"></div>
-  <div class="img-frame" style="width:380px;">
+  <div class="img-clean" style="width:380px;">
     <img src="V8.png" alt="Compost Tea bucket brewing">
   </div>
-  <div class="img-caption" style="color:#6b3800;">Compost tea brewing — dark brown, earthy-smelling liquid fertilizer</div>
+  <div class="img-caption" style="color:#6b3800;">Compost tea brewing — a dark brown, earthy-scented liquid fertilizer</div>
   <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
     Duration : 3–4 Days &nbsp;|&nbsp; 150 g Compost + 10 L Water + 50 g Jaggery<br>
     Aerate Continuously for 3 Days
@@ -804,52 +875,62 @@ table.cost-table td {
 
 <!-- PAGE 21: Activity 5 Ruled -->
 <div class="page ruled-page">
-  <span class="activity-strip">Activity 5 — Making Compost Tea</span>
+  <span class="activity-strip">Activity 5 — Making Compost Tea (Organic Liquid Fertilizer)</span>
+
+  <span class="sub-heading">Introduction</span>
+  <div class="intro-box">
+    <span class="ln">Compost tea is a nutrient-rich liquid fertilizer produced by soaking</span>
+    <span class="ln">mature compost in water, extracting beneficial microorganisms and</span>
+    <span class="ln">plant nutrients in the process. It acts as a powerful natural</span>
+    <span class="ln">fertilizer and plant booster that helps plants grow healthier and</span>
+    <span class="ln">stronger without relying on harmful chemical fertilizers. Through</span>
+    <span class="ln">this activity, students learn how organic waste can be transformed</span>
+    <span class="ln">into a sustainable, eco-friendly resource that improves soil health</span>
+    <span class="ln">and enriches the soil ecosystem.</span>
+  </div>
 
   <span class="sub-heading">Procedure</span>
   <ul class="hw-list">
-    <li>Take well-finished, mature compost — dark, crumbly, with an earthy smell.</li>
-    <li>Fill a clean bucket with 10 litres of non-chlorinated (or dechlorinated) water.</li>
-    <li>Put 150 g of compost into a muslin cloth bag and tie it tightly.</li>
+    <li>Take well-finished, mature compost — dark, crumbly, with a pleasant earthy smell.</li>
+    <li>Fill a clean bucket with 10 litres of non-chlorinated or dechlorinated water.</li>
+    <li>Put 150 g of compost into a muslin cloth bag; tie it tightly with string.</li>
     <li>Place the compost bag into the bucket of water.</li>
-    <li>Add 50 g of jaggery or molasses to encourage microbial growth; stir well.</li>
-    <li>Place an aquarium air pump to aerate the mixture for 24–36 hours.</li>
-    <li>Stir the mixture 2–3 times a day if no pump is used.</li>
-    <li>Let the compost steep for 24–48 hours — the water turns brown.</li>
-    <li>Remove the compost bag, squeeze gently; the compost tea is ready to use.</li>
+    <li>Add 50 g of jaggery or molasses to encourage microbial growth; stir thoroughly.</li>
+    <li>Place an aquarium air pump to aerate the mixture continuously for 24–36 hours.</li>
+    <li>Let the compost steep for 24–48 hours — the water will turn rich brown.</li>
+    <li>Remove the compost bag, squeeze gently to collect remaining liquid; tea is ready.</li>
   </ul>
 
   <span class="sub-heading">Observation Table</span>
   <span class="gap"></span>
-  <table class="obs-table">
-    <thead><tr><th>Parameter</th><th>Observation</th></tr></thead>
-    <tbody>
-      <tr><td>Colour</td><td>Brown</td></tr>
-      <tr><td>Smell</td><td>Earthy</td></tr>
-      <tr><td>Foam</td><td>Present</td></tr>
-    </tbody>
-  </table>
+  <div class="obs-draw">
+    <div class="obs-draw-header"><span>Parameter</span><span>Observation</span></div>
+    <div class="obs-draw-row"><span>Colour</span><span>Brown</span></div>
+    <div class="obs-draw-row"><span>Smell</span><span>Earthy</span></div>
+    <div class="obs-draw-row"><span>Foam</span><span>Present</span></div>
+  </div>
   <span class="gap"></span>
   <span class="sub-heading">Conclusion</span>
-  <span class="ln">Compost tea is a simple, eco-friendly, powerful liquid fertilizer.</span>
-  <span class="ln">This activity taught us how organic waste can be recycled into</span>
-  <span class="ln">nutrients that improve soil health and boost plant growth naturally.</span>
+  <span class="ln">Compost tea is a simple yet remarkably effective eco-friendly</span>
+  <span class="ln">fertilizer. This activity revealed how organic waste can be</span>
+  <span class="ln">intelligently recycled into nutrients that naturally improve</span>
+  <span class="ln">soil health and accelerate healthy plant growth.</span>
   <div class="page-num">21</div>
 </div>
 
 
 <!-- ██ ACTIVITY 6 ██ -->
-<!-- PAGE 22: Activity 6 Blank -->
+<!-- PAGE 22: Activity 6 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00;">Activity 6</div>
+  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 6</div>
   <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">Maintaining Water pH</div>
-  <div class="cover-subtitle" style="color:#8b4500;">Ideal pH for Hydroponics : 6.5 – 7.0</div>
+  <div class="cover-subtitle" style="color:#8b4500;">Ideal pH Range : 6.5 – 7.0</div>
   <div class="cover-divider" style="color:#6b3800;"></div>
-  <div class="img-frame" style="width:400px;">
+  <div class="img-clean" style="width:400px;">
     <img src="V9.png" alt="pH meter in water">
   </div>
-  <div class="img-caption" style="color:#6b3800;">A digital pH meter used to measure and adjust water pH level</div>
+  <div class="img-caption" style="color:#6b3800;">A digital pH meter precisely measuring and adjusting water pH level</div>
   <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
     Initial pH : 7.5 &nbsp;→&nbsp; Acid used : Vinegar &nbsp;→&nbsp; Final pH : 6.8<br>
     Root Effect : Healthy white roots observed
@@ -859,56 +940,47 @@ table.cost-table td {
 
 <!-- PAGE 23: Activity 6 Ruled -->
 <div class="page ruled-page">
-  <span class="activity-strip">Activity 6 — Maintaining Water pH</span>
+  <span class="activity-strip">Activity 6 — Maintaining Water pH for Optimal Plant Growth</span>
 
-  <span class="sub-heading">Why pH Matters in Hydroponics</span>
-  <span class="ln">pH is a measure of how acidic or alkaline water is. The ideal</span>
-  <span class="ln">pH range for most hydroponic plants is 5.5–6.5. If pH is too</span>
-  <span class="ln">low (acidic), water harms roots. If too high (alkaline), plants</span>
-  <span class="ln">cannot absorb nutrients properly and growth is stunted.</span>
+  <span class="sub-heading">Introduction</span>
+  <div class="intro-box">
+    <span class="ln">Maintaining the correct pH level of water is absolutely essential</span>
+    <span class="ln">for healthy plant growth — especially in hydroponic systems where</span>
+    <span class="ln">water is the sole medium for supplying nutrients. pH is a measure</span>
+    <span class="ln">of how acidic or alkaline a solution is. Nutrient mobility is best</span>
+    <span class="ln">when water pH is in the range of 6.5 to 7.0. Even a small deviation</span>
+    <span class="ln">can drastically affect how well plants absorb essential nutrients.</span>
+    <span class="ln">In this activity, learners gain practical experience in measuring,</span>
+    <span class="ln">analysing, and adjusting pH using precise scientific tools.</span>
+  </div>
 
   <span class="sub-heading">Procedure</span>
   <ul class="hw-list">
-    <li>Collect a water sample from the hydroponic system in a clean bucket.</li>
-    <li>Dip a digital pH meter probe into the water and note the reading.</li>
-    <li>If pH is too low → add pH Up solution (alkaline) drop by drop.</li>
-    <li>If pH is too high → add pH Down solution (e.g., vinegar) drop by drop.</li>
-    <li>Stir the water and re-test after each addition. Never add too much at once.</li>
+    <li>Collect a water sample from the hydroponic system in a clean container.</li>
+    <li>Calibrate the digital pH meter using standard buffer solutions (pH 4, 7, 10).</li>
+    <li>Dip the pH meter probe into the water; wait for the reading to stabilise.</li>
+    <li>If pH is too low (acidic) → add pH Up solution drop by drop and stir.</li>
+    <li>If pH is too high (alkaline) → add vinegar (pH Down) drop by drop and stir.</li>
+    <li>Re-test after each addition; never add large amounts at once.</li>
     <li>Once pH reaches 6.5–7.0, the water is ready for the hydroponic system.</li>
-    <li>Rinse the pH meter probe with distilled water after use and store safely.</li>
+    <li>Rinse the pH meter probe with distilled water after every use; store carefully.</li>
   </ul>
 
   <span class="sub-heading">pH Observation Table</span>
   <span class="gap"></span>
-  <table class="obs-table">
-    <thead><tr><th>Parameter</th><th>Result</th></tr></thead>
-    <tbody>
-      <tr><td>Initial pH</td><td>7.5</td></tr>
-      <tr><td>Acid Used</td><td>Vinegar</td></tr>
-      <tr><td>Final pH</td><td>6.8</td></tr>
-      <tr><td>Root Effect</td><td>Healthy white roots</td></tr>
-    </tbody>
-  </table>
+  <div class="obs-draw">
+    <div class="obs-draw-header"><span>Parameter</span><span>Result</span></div>
+    <div class="obs-draw-row"><span>Initial pH</span><span>7.5</span></div>
+    <div class="obs-draw-row"><span>Acid Used</span><span>Vinegar</span></div>
+    <div class="obs-draw-row"><span>Final pH</span><span>6.8</span></div>
+    <div class="obs-draw-row"><span>Root Effect</span><span>Healthy white roots</span></div>
+  </div>
   <span class="gap"></span>
   <span class="sub-heading">Conclusion</span>
-  <span class="ln">Maintaining the correct pH is essential for healthy plant growth</span>
-  <span class="ln">in hydroponics. This activity taught accurate measurement, safe</span>
-  <span class="ln">handling of chemicals, and the science of water quality management.</span>
-  <div class="page-num">23</div>
-</div>
-
-</body>
-</html>
-d>Acid Used</td><td>Vinegar</td></tr>
-      <tr><td>Final pH</td><td>6.8</td></tr>
-      <tr><td>Root Effect</td><td>Healthy white roots</td></tr>
-    </tbody>
-  </table>
-  <span class="gap"></span>
-  <span class="sub-heading">Conclusion</span>
-  <span class="ln">Maintaining the correct pH is essential for healthy plant growth</span>
-  <span class="ln">in hydroponics. This activity taught accurate measurement, safe</span>
-  <span class="ln">handling of chemicals, and the science of water quality management.</span>
+  <span class="ln">Maintaining the correct pH is indispensable for a thriving</span>
+  <span class="ln">hydroponic system. This activity sharpened our skills in accurate</span>
+  <span class="ln">measurement, safe chemical handling, and the critical science of</span>
+  <span class="ln">water quality management for sustainable plant cultivation.</span>
   <div class="page-num">23</div>
 </div>
 
