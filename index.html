@@ -13,10 +13,35 @@
   --margin-l: 88px;
   --pad-top: 76px;
   --pad-side: 52px;
+
+  /* ── Colour palette (inspired by Pentonic pens + DOMS pencils + paint pots) ── */
+  --c-red:      #e8312a;   /* Pentonic red pen         */
+  --c-orange:   #f47c20;   /* orange paint pot         */
+  --c-yellow:   #f5c800;   /* yellow paint pot         */
+  --c-green:    #27a84a;   /* green marker             */
+  --c-teal:     #0ea5a0;   /* teal sketch pen          */
+  --c-blue:     #1565c0;   /* blue colour pencil       */
+  --c-violet:   #7c3aed;   /* violet marker            */
+  --c-pink:     #e91e8c;   /* pink paint pot           */
+  --c-brown:    #8b4513;   /* brown colour pencil      */
+
+  /* ruler lines */
+  --rule-line:  #b8d9f5;
+  --rule-margin:#f07070;
 }
 
 body {
-  background: #b5afa5;
+  /* colourful crayon-box background */
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #ff6b6b22 0px, #ff6b6b22 2px, transparent 2px, transparent 24px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      #43e97b22 0px, #43e97b22 2px, transparent 2px, transparent 24px
+    ),
+    #2d2d44;
   font-family: 'Caveat', cursive;
   font-size: 21px;
   color: #111;
@@ -27,10 +52,11 @@ body {
 .page {
   width: 794px;
   min-height: 1123px;
-  margin: 0 auto 56px;
+  margin: 0 auto 60px;
   position: relative;
-  box-shadow: 5px 7px 22px rgba(0,0,0,0.38);
+  box-shadow: 6px 8px 28px rgba(0,0,0,0.5);
   overflow: hidden;
+  border-radius: 2px;
 }
 
 /* ─── BLANK PAGE ────────────────────────── */
@@ -46,44 +72,43 @@ body {
 
 /* ─── RULED PAGE ───────────────────────── */
 .ruled-page {
-  background-color: #fefefe;
+  background-color: #fffef9;
   background-image:
     linear-gradient(90deg,
       transparent 82px,
-      #e8786a 82px, #e8786a 84px,
+      var(--rule-margin) 82px, var(--rule-margin) 84px,
       transparent 84px),
     repeating-linear-gradient(
       to bottom,
       transparent 0px,
       transparent calc(var(--line) - 1px),
-      #aecde8 calc(var(--line) - 1px),
-      #aecde8 var(--line)
+      var(--rule-line) calc(var(--line) - 1px),
+      var(--rule-line) var(--line)
     );
   padding: var(--pad-top) 38px var(--pad-top) var(--margin-l);
   min-height: 1123px;
 }
 
-.ruled-page * {
-  line-height: var(--line);
-}
+.ruled-page * { line-height: var(--line); }
 
 /* ─── HEADINGS ─────────────────────────── */
 .section-heading {
   font-family: 'Caveat Brush', cursive;
   font-size: 30px;
-  color: #12126e;
-  border-bottom: 2.5px solid #12126e;
+  color: var(--c-blue);
+  border-bottom: 3px solid var(--c-blue);
   padding-bottom: 0;
   margin-bottom: var(--line);
   display: block;
   line-height: var(--line);
   text-align: center;
+  text-shadow: 1px 1px 0 rgba(21,101,192,0.15);
 }
 
 .sub-heading {
   font-family: 'Caveat Brush', cursive;
   font-size: 24px;
-  color: #8b0000;
+  color: var(--c-red);
   display: block;
   margin-top: var(--line);
   margin-bottom: 0;
@@ -100,27 +125,33 @@ body {
 }
 .gap { display: block; height: var(--line); }
 
-/* bullet list */
+/* ─── BULLET LIST ─────────────────────── */
 .hw-list { list-style: none; padding: 0; margin: 0; }
 .hw-list li {
   line-height: var(--line);
-  padding-left: 24px;
+  padding-left: 28px;
   position: relative;
 }
+/* Rainbow bullets — cycle through pen colours */
+.hw-list li:nth-child(6n+1)::before { color: var(--c-red);    }
+.hw-list li:nth-child(6n+2)::before { color: var(--c-orange); }
+.hw-list li:nth-child(6n+3)::before { color: var(--c-green);  }
+.hw-list li:nth-child(6n+4)::before { color: var(--c-blue);   }
+.hw-list li:nth-child(6n+5)::before { color: var(--c-violet); }
+.hw-list li:nth-child(6n+6)::before { color: var(--c-pink);   }
 .hw-list li::before {
-  content: "➤";
+  content: "✦";
   position: absolute; left: 0;
-  font-size: 14px; top: 3px;
-  color: #8b0000;
+  font-size: 13px; top: 4px;
 }
 
 /* ─── STUDENT BOX ─────────────────────── */
 .student-box {
-  border: 2px dashed #8b0000;
+  border: 2.5px dashed var(--c-violet);
   padding: 0 18px;
   margin-bottom: var(--line);
-  border-radius: 4px;
-  background: rgba(255,255,255,0.55);
+  border-radius: 6px;
+  background: rgba(124,58,237,0.05);
 }
 .student-box .ln { font-size: 20px; }
 
@@ -131,21 +162,22 @@ table.hw-table {
   font-size: 19px;
 }
 table.hw-table th {
-  background: #1e3a5f;
+  background: linear-gradient(90deg, var(--c-blue) 0%, var(--c-teal) 100%);
   color: #fff;
   padding: 6px 10px;
   font-family: 'Caveat Brush', cursive;
   font-size: 19px;
-  border: 1.5px solid #1e3a5f;
+  border: 1.5px solid var(--c-blue);
   line-height: 1.2;
 }
 table.hw-table td {
-  border: 1.5px solid #7a9cc0;
+  border: 1.5px solid #90caf9;
   padding: 6px 10px;
   vertical-align: middle;
   line-height: 1.3;
 }
-table.hw-table tr:nth-child(even) td { background: rgba(174,205,232,0.18); }
+table.hw-table tr:nth-child(even) td { background: rgba(14,165,160,0.07); }
+table.hw-table tr:nth-child(odd)  td { background: rgba(21,101,192,0.04); }
 
 table.cost-table {
   width: 58%;
@@ -154,74 +186,75 @@ table.cost-table {
   font-size: 19px;
 }
 table.cost-table th {
-  background: #1a4a7a;
-  color: #fff;
+  background: linear-gradient(90deg, var(--c-orange) 0%, var(--c-yellow) 100%);
+  color: #5a2d00;
   padding: 6px 14px;
   font-family: 'Caveat Brush', cursive;
-  border: 1.5px solid #1a4a7a;
+  border: 1.5px solid var(--c-orange);
   line-height: 1.2;
 }
 table.cost-table td {
-  border: 1.5px solid #1a4a7a;
+  border: 1.5px solid var(--c-orange);
   padding: 6px 14px;
   text-align: center;
   line-height: 1.3;
 }
+table.cost-table tr:nth-child(even) td { background: #fff8e6; }
 
-/* ─── HAND-DRAWABLE OBSERVATION TABLE ─── */
+/* ─── OBSERVATION TABLE ───────────────── */
 .obs-draw {
   width: 92%;
   margin: 6px auto;
-  border: 2px solid #1a7a42;
-  border-radius: 4px;
+  border: 2.5px solid var(--c-green);
+  border-radius: 6px;
   overflow: hidden;
 }
 .obs-draw-header {
-  background: #1a7a42;
+  background: linear-gradient(90deg, var(--c-green) 0%, var(--c-teal) 100%);
   color: #fff;
   font-family: 'Caveat Brush', cursive;
   font-size: 20px;
   display: flex;
-  border-bottom: 2px solid #1a7a42;
+  border-bottom: 2px solid var(--c-green);
 }
 .obs-draw-header span {
   flex: 1;
   padding: 5px 12px;
-  border-right: 1.5px solid rgba(255,255,255,0.4);
+  border-right: 1.5px solid rgba(255,255,255,0.35);
   line-height: 1.3;
 }
 .obs-draw-header span:last-child { border-right: none; }
 .obs-draw-row {
   display: flex;
-  border-bottom: 1.5px solid #1a7a42;
+  border-bottom: 1.5px solid #a5d6a7;
   font-size: 20px;
 }
 .obs-draw-row:last-child { border-bottom: none; }
 .obs-draw-row span {
   flex: 1;
   padding: 5px 12px;
-  border-right: 1.5px solid #1a7a42;
+  border-right: 1.5px solid #a5d6a7;
   line-height: 1.3;
   min-height: 34px;
 }
 .obs-draw-row span:last-child { border-right: none; }
-.obs-draw-row:nth-child(even) span { background: #f0fff4; }
+.obs-draw-row:nth-child(even) span { background: #f1fff5; }
+.obs-draw-row:nth-child(odd)  span { background: #fafff7; }
 
-/* blank fill row */
-.obs-draw-row .blank-cell {
-  color: #aaa;
-  font-style: italic;
-}
+.obs-draw-row .blank-cell { color: #aaa; font-style: italic; }
 
 /* ─── BLANK PAGE ELEMENTS ─────────────── */
 .subject-badge {
-  background: #2c3e50; color: #fff;
+  color: #fff;
   font-family: 'Caveat Brush', cursive;
   font-size: 17px; letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 4px 16px; border-radius: 3px;
+  padding: 5px 18px; border-radius: 20px;
   margin-bottom: 16px; display: inline-block;
+  background: linear-gradient(90deg, var(--c-blue), var(--c-teal));
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
+
 .cover-title {
   font-family: 'Caveat Brush', cursive;
   font-size: 46px; text-align: center;
@@ -236,48 +269,57 @@ table.cost-table td {
   color: #666; margin-top: 30px;
 }
 .cover-divider {
-  width: 180px; height: 3px;
+  width: 180px; height: 4px;
   background: currentColor;
   margin: 10px auto; border-radius: 2px;
-  opacity: 0.28;
-}
-.deco-border {
-  position: absolute; inset: 16px;
-  border: 2.5px solid rgba(0,0,0,0.10);
-  border-radius: 4px; pointer-events: none;
-}
-.deco-border-inner {
-  position: absolute; inset: 24px;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 3px; pointer-events: none;
+  opacity: 0.35;
 }
 
-/* image — NO border, just clean */
+/* Decorative corner border — now colourful */
+.deco-border {
+  position: absolute; inset: 16px;
+  border: 3px solid transparent;
+  border-radius: 6px; pointer-events: none;
+  background-clip: padding-box;
+  box-shadow: inset 0 0 0 3px rgba(124,58,237,0.18);
+}
+.deco-border-inner {
+  position: absolute; inset: 26px;
+  border: 1.5px dashed rgba(39,168,74,0.22);
+  border-radius: 4px; pointer-events: none;
+}
+
+/* image */
 .img-clean {
-  border-radius: 6px; overflow: hidden;
+  border-radius: 8px; overflow: hidden;
   margin: 16px auto; display: block;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.14);
 }
 .img-clean img { width: 100%; height: auto; display: block; }
 .img-caption {
   font-size: 17px; color: #555;
-  text-align: center; margin-top: 5px;
+  text-align: center; margin-top: 6px;
 }
 
+/* Activity strip — rainbow gradient */
 .activity-strip {
-  background: #1a7a42; color: #fff;
+  background: linear-gradient(90deg,
+    var(--c-green) 0%, var(--c-teal) 50%, var(--c-blue) 100%);
+  color: #fff;
   font-family: 'Caveat Brush', cursive;
   font-size: 24px;
-  padding: 6px 20px; border-radius: 4px;
+  padding: 7px 20px; border-radius: 6px;
   display: block;
   margin-bottom: var(--line);
   line-height: 1.3;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .info-pill {
-  background: rgba(255,255,255,0.72);
-  border: 2px dashed currentColor;
-  padding: 12px 22px; border-radius: 6px;
+  background: rgba(255,255,255,0.75);
+  border: 2.5px dashed currentColor;
+  padding: 12px 22px; border-radius: 10px;
   margin-top: 20px; font-size: 20px;
   text-align: center; width: 88%;
 }
@@ -298,22 +340,51 @@ table.cost-table td {
   font-size: 16px; color: #bbb;
 }
 
-/* cover color variants */
-.cov-sst   { background: linear-gradient(155deg,#ddeeff 0%,#b8d8f5 55%,#90bfe8 100%); }
-.cov-voc   { background: linear-gradient(155deg,#e5f5e5 0%,#c0e6c0 55%,#96d496 100%); }
-.cov-proj  { background: linear-gradient(155deg,#e5f5ee 0%,#b8e8d0 55%,#88d8b0 100%); }
-.cov-act   { background: linear-gradient(155deg,#fef5e5 0%,#fde5b8 55%,#f8cc88 100%); }
-.cov-solar { background: linear-gradient(155deg,#fff8e0 0%,#ffe8a0 55%,#ffd060 100%); }
-
-/* intro box on ruled pages */
-.intro-box {
-  border-left: 4px solid #1a7a42;
-  background: rgba(26,122,66,0.06);
-  padding: 4px 14px;
-  margin-bottom: 4px;
-  border-radius: 0 4px 4px 0;
+/* ─── COVER COLOUR VARIANTS ──────────── */
+/* SST — vivid indigo-to-sky */
+.cov-sst {
+  background: linear-gradient(145deg,
+    #e8eaf6 0%, #c5cae9 40%, #90caf9 75%, #64b5f6 100%);
 }
 
+/* Vocational — emerald-to-lime */
+.cov-voc {
+  background: linear-gradient(145deg,
+    #e8f5e9 0%, #a5d6a7 40%, #69f0ae 75%, #b9f6ca 100%);
+}
+
+/* Project — mint-to-teal */
+.cov-proj {
+  background: linear-gradient(145deg,
+    #e0f7fa 0%, #80deea 40%, #26c6da 75%, #00e5ff 100%);
+}
+
+/* Activity — warm amber-to-peach */
+.cov-act {
+  background: linear-gradient(145deg,
+    #fff8e1 0%, #ffcc80 40%, #ffa726 75%, #ff8f00 100%);
+}
+
+/* Solar — golden sunrise */
+.cov-solar {
+  background: linear-gradient(145deg,
+    #fffde7 0%, #fff176 40%, #ffee58 70%, #fdd835 100%);
+}
+
+/* ─── INTRO BOX ───────────────────────── */
+.intro-box {
+  border-left: 5px solid var(--c-teal);
+  background: linear-gradient(90deg,
+    rgba(14,165,160,0.08) 0%, rgba(14,165,160,0.02) 100%);
+  padding: 4px 14px;
+  margin-bottom: 4px;
+  border-radius: 0 6px 6px 0;
+}
+
+/* ─── COLOURFUL TEXT HIGHLIGHTS ──────── */
+/* Make italic spans inside lists pop with colour */
+.hw-list li em { font-style: normal; font-weight: 600; color: var(--c-blue); }
+.ruled-page em  { font-style: normal; font-weight: 600; color: var(--c-teal); }
 </style>
 </head>
 <body>
@@ -326,8 +397,8 @@ table.cost-table td {
 <div class="page blank-page cov-sst">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
   <div class="subject-badge">Social Studies — Project Work</div>
-  <div class="cover-title" style="color:#0d3b6e;">Social Science<br>Project Work</div>
-  <div class="cover-divider" style="color:#0d3b6e;"></div>
+  <div class="cover-title" style="color:#1a237e;">Social Science<br>Project Work</div>
+  <div class="cover-divider" style="color:#1565c0;"></div>
   <div class="cover-subtitle">Indian Political Parties &amp; Solar Energy</div>
   <div class="img-clean" style="width:340px;">
     <img src="V1.png" alt="India Map">
@@ -398,15 +469,15 @@ table.cost-table td {
 <!-- PAGE 4: Solar Energy Cover -->
 <div class="page blank-page cov-solar">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="subject-badge" style="background:#a05000;">Social Studies — Project</div>
+  <div class="subject-badge" style="background:linear-gradient(90deg,#f47c20,#f5c800);color:#5a2d00;">Social Studies — Project</div>
   <div class="cover-title" style="color:#7a3a00; font-size:44px;">Solar Energy</div>
-  <div class="cover-divider" style="color:#7a3a00;"></div>
-  <div class="cover-subtitle" style="color:#8b4500;">Harnessing the Power of the Sun</div>
+  <div class="cover-divider" style="color:#f47c20;"></div>
+  <div class="cover-subtitle" style="color:#7a3500;">Harnessing the Power of the Sun</div>
   <div class="img-clean" style="width:420px; margin-top:14px;">
     <img src="V2.png" alt="Solar Panels">
   </div>
   <div class="img-caption" style="color:#7a3a00;">Solar panels — converting sunlight into electricity</div>
-  <div class="cover-school" style="color:#7a3a00;">Class VIII &nbsp;•&nbsp; Social Science Project &nbsp;•&nbsp; 2026–27<br>St. Xavier's Jr./Sr. School, Muzaffarpur</div>
+  <div class="cover-school" style="color:#6b3000;">Class VIII &nbsp;•&nbsp; Social Science Project &nbsp;•&nbsp; 2026–27<br>St. Xavier's Jr./Sr. School, Muzaffarpur</div>
   <div class="page-num">4</div>
 </div>
 
@@ -497,11 +568,11 @@ table.cost-table td {
 <!-- PAGE 8: Vocational Cover -->
 <div class="page blank-page cov-voc">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="subject-badge" style="background:#145214;">Vocational Education</div>
+  <div class="subject-badge" style="background:linear-gradient(90deg,#27a84a,#0ea5a0);">Vocational Education</div>
   <div class="cover-title" style="color:#0a3a0a; font-size:52px;">My Portfolio</div>
-  <div class="cover-divider" style="color:#145214;"></div>
-  <div class="cover-subtitle" style="color:#1a5c1a; font-size:22px;">Part 1 — Work with Life Forms</div>
-  <div class="cover-fill" style="border-color:#145214; color:#145214;">
+  <div class="cover-divider" style="color:#27a84a;"></div>
+  <div class="cover-subtitle" style="color:#0d5c1a; font-size:22px;">Part 1 — Work with Life Forms</div>
+  <div class="cover-fill" style="border-color:#27a84a; color:#145214;">
     <span class="fl">Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : ________________________________</span>
     <span class="fl">Class &amp; Sec &nbsp;: VIII – _______</span>
     <span class="fl">Roll No. &nbsp;&nbsp;&nbsp;&nbsp;: _______</span>
@@ -540,15 +611,15 @@ table.cost-table td {
 <!-- PAGE 10: Hydroponics Project Cover -->
 <div class="page blank-page cov-proj">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="subject-badge" style="background:#0e6b40;">Project – 1</div>
-  <div class="cover-title" style="color:#073d26; font-size:40px;">Hydroponics</div>
+  <div class="subject-badge" style="background:linear-gradient(90deg,#0ea5a0,#26c6da);color:#003838;">Project – 1</div>
+  <div class="cover-title" style="color:#004d4d; font-size:40px;">Hydroponics</div>
   <div class="cover-subtitle" style="color:#0e6b40; font-size:24px;">Growing Plants Without Soil</div>
-  <div class="cover-divider" style="color:#073d26;"></div>
+  <div class="cover-divider" style="color:#0ea5a0;"></div>
   <div class="img-clean" style="width:440px; margin-top:8px;">
     <img src="V3.png" alt="Hydroponics lettuce">
   </div>
-  <div class="img-caption" style="color:#073d26;">Lettuce thriving in a hydroponic system — no soil required</div>
-  <div class="cover-school" style="color:#073d26; margin-top:20px;">Vocational Education — Class VIII &nbsp;•&nbsp; 2026–27</div>
+  <div class="img-caption" style="color:#004d4d;">Lettuce thriving in a hydroponic system — no soil required</div>
+  <div class="cover-school" style="color:#004d4d; margin-top:20px;">Vocational Education — Class VIII &nbsp;•&nbsp; 2026–27</div>
   <div class="page-num">10</div>
 </div>
 
@@ -587,16 +658,16 @@ table.cost-table td {
 <!-- PAGE 12: Activity 1 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 1</div>
-  <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">
+  <div class="activity-strip" style="background:linear-gradient(90deg,#f47c20,#e8312a); display:inline-block; text-align:center;">Activity 1</div>
+  <div class="cover-title" style="color:#5a2800; font-size:36px; margin-top:8px;">
     Growing Microgreens<br>for a Healthy Salad
   </div>
-  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="cover-divider" style="color:#5a2800;"></div>
   <div class="img-clean" style="width:460px;">
     <img src="V4.png" alt="Microgreens tray">
   </div>
-  <div class="img-caption" style="color:#6b3800;">Fresh microgreens sprouting in a tray — ready to harvest in 7–10 days</div>
-  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+  <div class="img-caption" style="color:#5a2800;">Fresh microgreens sprouting in a tray — ready to harvest in 7–10 days</div>
+  <div class="info-pill" style="border-color:#5a2800; color:#5a2800;">
     Duration : 10 Days &nbsp;|&nbsp; Seeds : Spinach &amp; Fenugreek<br>
     Medium : Cocopeat &nbsp;|&nbsp; Trays Used : 2
   </div>
@@ -656,16 +727,16 @@ table.cost-table td {
 <!-- PAGE 14: Activity 2 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 2</div>
-  <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
+  <div class="activity-strip" style="background:linear-gradient(90deg,#f47c20,#e8312a); display:inline-block; text-align:center;">Activity 2</div>
+  <div class="cover-title" style="color:#5a2800; font-size:34px; margin-top:8px;">
     Hydroponic System<br>Using the "Wick Method"
   </div>
-  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="cover-divider" style="color:#5a2800;"></div>
   <div class="img-clean" style="width:440px;">
     <img src="V5.png" alt="Wick Method Hydroponic">
   </div>
-  <div class="img-caption" style="color:#6b3800;">Wick Method — a cotton wick draws nutrient solution up to plant roots via capillary action</div>
-  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+  <div class="img-caption" style="color:#5a2800;">Wick Method — a cotton wick draws nutrient solution up to plant roots via capillary action</div>
+  <div class="info-pill" style="border-color:#5a2800; color:#5a2800;">
     Duration : 15 Days &nbsp;|&nbsp; No. of Bottles : 5<br>
     Seeds : Coriander &nbsp;|&nbsp; Growth in 15 Days : 12 cm
   </div>
@@ -723,16 +794,16 @@ table.cost-table td {
 <!-- PAGE 16: Activity 3 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 3</div>
-  <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
+  <div class="activity-strip" style="background:linear-gradient(90deg,#f47c20,#e8312a); display:inline-block; text-align:center;">Activity 3</div>
+  <div class="cover-title" style="color:#5a2800; font-size:34px; margin-top:8px;">
     Deep Water Culture (DWC)<br>— Bucket Method
   </div>
-  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="cover-divider" style="color:#5a2800;"></div>
   <div class="img-clean" style="width:440px;">
     <img src="V6.png" alt="DWC System">
   </div>
-  <div class="img-caption" style="color:#6b3800;">Deep Water Culture — roots suspended in oxygenated nutrient-rich water</div>
-  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+  <div class="img-caption" style="color:#5a2800;">Deep Water Culture — roots suspended in oxygenated nutrient-rich water</div>
+  <div class="info-pill" style="border-color:#5a2800; color:#5a2800;">
     <table class="cost-table" style="width:80%; font-size:19px; margin:0 auto;">
       <thead><tr><th>Component</th><th>Cost (₹)</th></tr></thead>
       <tbody>
@@ -794,16 +865,16 @@ table.cost-table td {
 <!-- PAGE 18: Activity 4 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 4</div>
-  <div class="cover-title" style="color:#6b3800; font-size:34px; margin-top:8px;">
+  <div class="activity-strip" style="background:linear-gradient(90deg,#f47c20,#e8312a); display:inline-block; text-align:center;">Activity 4</div>
+  <div class="cover-title" style="color:#5a2800; font-size:34px; margin-top:8px;">
     Nutrient Film Technique<br>(NFT) System
   </div>
-  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="cover-divider" style="color:#5a2800;"></div>
   <div class="img-clean" style="width:460px;">
     <img src="V7.png" alt="NFT System">
   </div>
-  <div class="img-caption" style="color:#6b3800;">NFT — a thin film of nutrient solution flows continuously through inclined PVC channels</div>
-  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+  <div class="img-caption" style="color:#5a2800;">NFT — a thin film of nutrient solution flows continuously through inclined PVC channels</div>
+  <div class="info-pill" style="border-color:#5a2800; color:#5a2800;">
     Duration : 30 Days &nbsp;|&nbsp; Crop : Lettuce (8 plants)<br>
     Growth : Fast &nbsp;|&nbsp; Leaf Colour : Dark Green
   </div>
@@ -858,15 +929,15 @@ table.cost-table td {
 <!-- PAGE 20: Activity 5 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 5</div>
-  <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">Making Compost Tea</div>
-  <div class="cover-subtitle" style="color:#8b4500;">Organic Liquid Fertilizer</div>
-  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="activity-strip" style="background:linear-gradient(90deg,#f47c20,#e8312a); display:inline-block; text-align:center;">Activity 5</div>
+  <div class="cover-title" style="color:#5a2800; font-size:36px; margin-top:8px;">Making Compost Tea</div>
+  <div class="cover-subtitle" style="color:#7a3500;">Organic Liquid Fertilizer</div>
+  <div class="cover-divider" style="color:#5a2800;"></div>
   <div class="img-clean" style="width:380px;">
     <img src="V8.png" alt="Compost Tea bucket brewing">
   </div>
-  <div class="img-caption" style="color:#6b3800;">Compost tea brewing — a dark brown, earthy-scented liquid fertilizer</div>
-  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+  <div class="img-caption" style="color:#5a2800;">Compost tea brewing — a dark brown, earthy-scented liquid fertilizer</div>
+  <div class="info-pill" style="border-color:#5a2800; color:#5a2800;">
     Duration : 3–4 Days &nbsp;|&nbsp; 150 g Compost + 10 L Water + 50 g Jaggery<br>
     Aerate Continuously for 3 Days
   </div>
@@ -923,15 +994,15 @@ table.cost-table td {
 <!-- PAGE 22: Activity 6 Cover -->
 <div class="page blank-page cov-act">
   <div class="deco-border"></div><div class="deco-border-inner"></div>
-  <div class="activity-strip" style="background:#c47a00; display:inline-block; text-align:center;">Activity 6</div>
-  <div class="cover-title" style="color:#6b3800; font-size:36px; margin-top:8px;">Maintaining Water pH</div>
-  <div class="cover-subtitle" style="color:#8b4500;">Ideal pH Range : 6.5 – 7.0</div>
-  <div class="cover-divider" style="color:#6b3800;"></div>
+  <div class="activity-strip" style="background:linear-gradient(90deg,#f47c20,#e8312a); display:inline-block; text-align:center;">Activity 6</div>
+  <div class="cover-title" style="color:#5a2800; font-size:36px; margin-top:8px;">Maintaining Water pH</div>
+  <div class="cover-subtitle" style="color:#7a3500;">Ideal pH Range : 6.5 – 7.0</div>
+  <div class="cover-divider" style="color:#5a2800;"></div>
   <div class="img-clean" style="width:400px;">
     <img src="V9.png" alt="pH meter in water">
   </div>
-  <div class="img-caption" style="color:#6b3800;">A digital pH meter precisely measuring and adjusting water pH level</div>
-  <div class="info-pill" style="border-color:#6b3800; color:#6b3800;">
+  <div class="img-caption" style="color:#5a2800;">A digital pH meter precisely measuring and adjusting water pH level</div>
+  <div class="info-pill" style="border-color:#5a2800; color:#5a2800;">
     Initial pH : 7.5 &nbsp;→&nbsp; Acid used : Vinegar &nbsp;→&nbsp; Final pH : 6.8<br>
     Root Effect : Healthy white roots observed
   </div>
